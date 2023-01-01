@@ -1,5 +1,7 @@
+import { load } from 'cheerio'
 import NextAuth, { User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import fetch from 'node-fetch'
 import UserModel from '~/db/models/user'
 import { getRandomArrayItem } from '~/util'
 
@@ -90,6 +92,7 @@ async function signinFlow(credentials: Record<'username' | 'password', string> |
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const comparison = await (user as any).comparePassword(credentials.password)
   if (comparison) {
+    await getLodestoneData()
     return {
       id: user._id.toString(),
       name: user.username,
@@ -99,6 +102,40 @@ async function signinFlow(credentials: Record<'username' | 'password', string> |
   } else {
     return null
   }
+}
+
+async function getLodestoneData() {
+  const page = await fetch('https://na.finalfantasyxiv.com/lodestone/character/14985627/').then((r) => r.text())
+  const $ = load(page)
+  const race = $('.character-block__name').first().text().trim()
+  const name = $('.frame__chara__name').text().trim()
+  const title = $('.frame__chara__title').text().trim()
+  const world = $('.frame__chara__world').text().trim().split(' ')
+  const image = $('.frame__chara__face img').attr('src')
+  const freeCompanyUrl = $('.character__freecompany__name h4 a').attr('href')
+  const freeCompanyId = freeCompanyUrl?.split('/')[3]
+  const freeCompanyName = $('.character__freecompany__name h4').text().trim()
+  const freeCompanyCrest = $('.character__freecompany__crest__image')
+    .children()
+    .map((_idx, el) => $(el).attr('src'))
+    .toArray()
+  const data = {
+    race,
+    name,
+    title,
+    server: {
+      world: world[0],
+      dataCenter: world[1].replace('[', '').replace(']', '').trim(),
+    },
+    image,
+    freeCompany: {
+      url: freeCompanyUrl,
+      id: freeCompanyId,
+      name: freeCompanyName,
+      crest: freeCompanyCrest,
+    },
+  }
+  console.info(data)
 }
 
 export default NextAuth(authOptions)
