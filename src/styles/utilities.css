@@ -2,3 +2,132 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.bg-brown-brushed {
+  background-image: url(/ui/windowbg-brushed.png) !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.bg-black-brushed {
+  background-image: url(/ui/windowbg-glyphs.png) !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ptfont {
+  font-family: PTSerif, Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: 'PTSerif';
+  src: url(/fonts/PTSerif-Regular.ttf);
+}
+
+.cagfont {
+  font-family: Cagliostro, Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: 'Cagliostro';
+  src: url(/fonts/Cagliostro-Regular.ttf);
+}
+
+.gwfont {
+  font-family: GwTwo, Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: 'GwTwo';
+  src: url(/fonts/GWTwoFont.ttf);
+}
+
+/**
+ * User Styles
+ */
+
+/**
+ * Me
+ * `style: "rainbow"`
+ */
+
+.rainbow-border {
+  border-style: solid !important;
+  border-color: transparent !important;
+  border-width: 1px;
+  background-image: linear-gradient(white, white), linear-gradient(-45deg, #40e0d0, #ff8c00, #ff0080) !important;
+  background-origin: border-box !important;
+  background-clip: content-box, border-box !important;
+}
+
+.rainbow-text {
+  background-image: linear-gradient(-45deg, #40e0d0, #ff8c00, #ff0080);
+  filter: drop-shadow(0px 0px 3px rgba(200, 200, 200, 0.5));
+  @apply font-extrabold text-transparent bg-clip-text;
+}
+
+.thin-border {
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+.thick-border {
+  border-style: solid !important;
+  border-width: 3px !important;
+}
+
+.animate-huerotate {
+  animation: huerotate 6s infinite linear;
+  filter: hue-rotate(360deg);
+}
+
+@keyframes huerotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/**
+ * Twitch
+ */
+
+.twitch-border {
+  @apply !border-purple-500 border !border-solid;
+}
+
+.twitch-text {
+  @apply !text-purple-500 font-bold;
+  filter: drop-shadow(0px 0px 2px rgba(200, 200, 200, 0.3));
+}
+
+/**
+ * Noxxi - Special user style for NoxxiGreenstone
+ * `style: "noxxi"`
+ */
+
+.noxxi-border {
+  @apply !border-green-500 border !border-solid;
+}
+
+.noxxi-text {
+  @apply !text-green-500 font-bold;
+  filter: drop-shadow(0px 0px 2px rgba(200, 200, 200, 0.3));
+}
+
+/**
+ * Taimi - Special user style for Tiny Taimi, the colour of Taimi's bow
+ * `style: "taimi"`
+ */
+.taimi-border {
+  border-color: #c6664c !important;
+  @apply border !border-solid;
+}
+
+.taimi-text {
+  color: #c6664c !important;
+  @apply font-bold;
+  filter: drop-shadow(0px 0px 2px rgba(200, 200, 200, 0.3));
+}

@@ -1,8 +1,18 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import * as Fathom from 'fathom-client'
+import * as FathomClient from 'fathom-client'
 
-const ID = process.env.FATHOM_ID || ''
+const ID = process.env.FATHOM_ID || 'EIJUNWWI'
+
+export type Fathom = typeof FathomClient
+
+export const EVENTS = {
+  Signin: 'WUKKM8SS',
+  Register: 'RMLL1R4C',
+  StartGame: 'YWX7HTHN',
+  FinishGame: '7XZ3PJYS',
+  SightseeingAppClick: 'HYW5PXCJ',
+}
 
 export default function useFathom() {
   const router = useRouter()
@@ -13,12 +23,12 @@ export default function useFathom() {
     }
 
     // Initialize Fathom when the app loads
-    Fathom.load(ID, {
+    FathomClient.load(ID, {
       excludedDomains: ['localhost'],
     })
 
     function onRouteChangeComplete() {
-      Fathom.trackPageview()
+      FathomClient.trackPageview()
     }
     // Record a pageview when route changes
     router.events.on('routeChangeComplete', onRouteChangeComplete)
@@ -29,4 +39,6 @@ export default function useFathom() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  return FathomClient
 }
