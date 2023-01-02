@@ -1,17 +1,13 @@
 import * as React from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { EVENTS, Fathom } from '~/components/hooks/useFathom'
 import { CHALLENGE } from '~/types'
 import { OptionsProps } from './Start'
 import Countdown from 'react-countdown'
 import { FaTwitter } from 'react-icons/fa'
 
-const Map = dynamic(() => import('~/components/primitives/Map'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>,
-})
+const Map = (_: any) => <div>Map</div>
 
 export type Game = Array<{
   _id: string

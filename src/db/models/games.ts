@@ -28,7 +28,6 @@ const itemSchema = new Schema<WithDoc<Game>, ItemModel>(
     isDeleted: Boolean,
   },
   {
-    id: true,
     timestamps: true,
   }
 )

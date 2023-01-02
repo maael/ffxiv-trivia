@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export type WithDoc<T> = T & Document
 
 export interface User {
+  _id: string
   username: string
   password: string
   image: string
@@ -34,7 +35,7 @@ export interface Challenge {
     sort?: 'score-time' | 'score-created-at'
     rounds?: number
     roundTime?: number
-    pictureTime?: number
+    questionTime?: number
   }
   isDeleted: boolean
   createdAt: string
@@ -43,10 +44,11 @@ export interface Challenge {
 }
 
 export interface ChallengeOption {
-  id: string
-  image: string
-  location: [number, number]
-  mapId: number
+  _id: string
+  question: string
+  options: { correct: string; option: string }[]
+  difficulty: string
+  spoilers: string[]
 }
 
 export type ApiOneHandler<T = any, Body = any> = (args: {

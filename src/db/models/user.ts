@@ -2,6 +2,8 @@ import mongoose, { Schema, Model } from 'mongoose'
 import bcrypt from 'bcryptjs'
 import { WithDoc, User } from '../../types'
 
+export type { User }
+
 interface ItemMethods {
   comparePassword(input: string): Promise<boolean>
 }
@@ -17,10 +19,9 @@ const itemSchema = new Schema<WithDoc<User>, ItemModel, ItemMethods>(
     image: { type: String },
     style: { type: String },
     isDeleted: { type: Boolean, default: false },
-    lodestoneData: { type: mongoose.Schema.Types.Mixed, default:{} }
+    lodestoneData: { type: mongoose.Schema.Types.Mixed, default: {} },
   },
   {
-    id: true,
     timestamps: true,
   }
 )

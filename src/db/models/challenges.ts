@@ -25,7 +25,6 @@ const itemSchema = new Schema<WithDoc<Challenge>, ItemModel>(
     isDeleted: Boolean,
   },
   {
-    id: true,
     timestamps: true,
   }
 )

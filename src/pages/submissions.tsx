@@ -1,12 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-import dynamic from 'next/dynamic'
 import { FaClock, FaMapPin, FaSpinner, FaUser } from 'react-icons/fa'
 import format from 'date-fns/format'
-const Map = dynamic(() => import('~/components/primitives/Map'), {
-  ssr: false,
-  loading: () => <div>Loading...</div>,
-})
+const Map = (_: any) => <div>Map</div>
 
 function useSubmissions() {
   const [submissions, setSubmissions] = React.useState({ data: [], error: undefined })
