@@ -62,16 +62,18 @@ export const authOptions: Parameters<typeof NextAuth>[2] = {
 async function registerFlow(
   credentials: Record<'username' | 'password' | 'gw2Account', string> | undefined
 ): Promise<User | null> {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     if (!credentials) return reject(new Error('Credentials required'))
     if (credentials.password.length < 8) return reject(new Error('Password must be more than 8 characters'))
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const avatars = require('../../../../data/avatars.json') as string[]
+    const lodestoneData = await getLodestoneData()
     const newUser = new UserModel({
       username: credentials.username,
       password: credentials.password,
       gw2Account: credentials.gw2Account,
       image: getRandomArrayItem(avatars),
+      lodestoneData,
     })
     newUser.save((err) => {
       if (err) return reject(err)
@@ -92,7 +94,8 @@ async function signinFlow(credentials: Record<'username' | 'password', string> |
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const comparison = await (user as any).comparePassword(credentials.password)
   if (comparison) {
-    await getLodestoneData()
+    const lodestoneData = await getLodestoneData()
+    await UserModel.updateOne
     return {
       id: user._id.toString(),
       name: user.username,
@@ -107,11 +110,12 @@ async function signinFlow(credentials: Record<'username' | 'password', string> |
 async function getLodestoneData() {
   const page = await fetch('https://na.finalfantasyxiv.com/lodestone/character/14985627/').then((r) => r.text())
   const $ = load(page)
-  const race = $('.character-block__name').first().text().trim()
+  const race = $('.character-block__name').first().html()?.split('<br>')[0]?.trim()
   const name = $('.frame__chara__name').text().trim()
   const title = $('.frame__chara__title').text().trim()
   const world = $('.frame__chara__world').text().trim().split(' ')
-  const image = $('.frame__chara__face img').attr('src')
+  const imageUrl = new URL($('.frame__chara__face img').attr('src') || '')
+  const image = `${imageUrl.protocol}//${imageUrl.host}${imageUrl.pathname}`
   const freeCompanyUrl = $('.character__freecompany__name h4 a').attr('href')
   const freeCompanyId = freeCompanyUrl?.split('/')[3]
   const freeCompanyName = $('.character__freecompany__name h4').text().trim()
@@ -135,7 +139,7 @@ async function getLodestoneData() {
       crest: freeCompanyCrest,
     },
   }
-  console.info(data)
+  return data
 }
 
 export default NextAuth(authOptions)

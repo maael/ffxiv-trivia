@@ -7,8 +7,9 @@ export interface User {
   username: string
   password: string
   image: string
-  gw2Account?: string
+  lodestoneUrl?: string
   style?: 'rainbow'
+  lodestoneData?: any
   isDeleted: boolean
   createdAt: string
   updatedAt: string
