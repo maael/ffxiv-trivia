@@ -18,7 +18,7 @@ export default function GamesBlock({
     totalGames?: number
     games?: {
       _id: string
-      userId: { username: string; image: string; style?: string }
+      userId: { username: string; lodestoneData?: { name: string }; image: string; style?: string }
       totalScore: number
       timeMs?: number
       createdAt: string
@@ -30,7 +30,7 @@ export default function GamesBlock({
   return (
     <div className="bg-brown-brushed px-5 pt-3 pb-5 drop-shadow-lg sm:flex-1 flex flex-col gap-1 w-full">
       <div className="flex flex-row gap-1 items-center">
-        <div className="gwfont text-xl flex-1">{label}</div>
+        <div className="font-trajan text-xl flex-1">{label}</div>
         {isLoading ? <FaSpinner className="animate-spin" /> : null}
       </div>
       <div className="flex flex-col sm:flex-row items-center">
@@ -43,7 +43,7 @@ export default function GamesBlock({
       </div>
       <div className="my-2">
         <div
-          className="flex flex-row gap-2 px-3 py-1 gwfont text-lg sm:text-xl"
+          className="flex flex-row gap-2 px-3 py-1 font-trajan text-lg sm:text-xl"
           style={{
             backgroundColor: 'rgba(96, 76, 52, 0.5)',
           }}
@@ -65,7 +65,7 @@ export default function GamesBlock({
               >
                 <span
                   className="w-2/5 text-center sm:text-left flex flex-row gap-2 items-center"
-                  title={g.userId?.username}
+                  title={g.userId?.lodestoneData?.name || g.userId?.username}
                 >
                   <Link href={`/user/${g.userId?.username}`} prefetch={false}>
                     <a className="text-center sm:text-left flex flex-row gap-2 items-center">
@@ -76,7 +76,7 @@ export default function GamesBlock({
                         className={cls('rounded-full', getUserStyle.border)}
                       />{' '}
                       <span className={cls('overflow-ellipsis overflow-hidden whitespace-nowrap', getUserStyle.text)}>
-                        {cleanUsername(g.userId?.username)}
+                        {cleanUsername(g.userId?.lodestoneData?.name || g.userId?.username)}
                       </span>
                     </a>
                   </Link>

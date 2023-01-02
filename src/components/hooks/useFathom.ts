@@ -2,16 +2,15 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import * as FathomClient from 'fathom-client'
 
-const ID = process.env.FATHOM_ID || 'EIJUNWWI'
+const ID = process.env.FATHOM_ID || 'ADRUJACN'
 
 export type Fathom = typeof FathomClient
 
 export const EVENTS = {
-  Signin: 'WUKKM8SS',
-  Register: 'RMLL1R4C',
-  StartGame: 'YWX7HTHN',
-  FinishGame: '7XZ3PJYS',
-  SightseeingAppClick: 'HYW5PXCJ',
+  Signin: 'ZAQJNQA9',
+  Register: 'W2JIXHDE',
+  StartGame: 'EHIZJQFM',
+  FinishGame: 'AXVDRRGW',
 }
 
 export default function useFathom() {

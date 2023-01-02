@@ -76,15 +76,15 @@ export default function Game({ fathom }: { fathom: Fathom }) {
   } = useGameOptions(queryGameType ? gameType : null, customGameId, setStarted, resetTimer)
   React.useEffect(() => {
     if (gameType === CHALLENGE.custom) {
-      if (settings?.imageTime) {
-        optionProps.setImageTime(settings.imageTime)
+      if (settings?.questionTime) {
+        optionProps.setQuestionTime(settings.questionTime)
       }
       if (settings?.roundTime) {
         optionProps.setRoundTime(settings.roundTime)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings?.roundTime, settings?.imageTime, gameType, optionProps.setImageTime, optionProps.setRoundTime])
+  }, [settings?.roundTime, settings?.questionTime, gameType, optionProps.setQuestionTime, optionProps.setRoundTime])
   return loading ? (
     <div className="flex justify-center items-center h-full">
       <FaSpinner className="animate-spin text-white text-4xl" />

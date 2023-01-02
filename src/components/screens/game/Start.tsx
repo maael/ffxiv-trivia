@@ -29,7 +29,7 @@ export default function StartScreen({
   const [createdGameId, setCreatedGameId] = React.useState('')
   return (
     <div className="h-full flex flex-col justify-center items-center text-white gap-5">
-      <h1 className="gwfont text-4xl text-center">
+      <h1 className="font-trajan text-4xl text-center">
         {name || (gameType === CHALLENGE.custom ? 'Custom Game' : 'Quick Game')}
       </h1>
       {gameType === CHALLENGE.custom ? null : gameType === CHALLENGE.random ? (
@@ -49,8 +49,8 @@ export default function StartScreen({
           {optionsProps.roundTime ? (
             <div>Game Time Limit: {convertMsToMinutesSeconds(optionsProps.roundTime)}</div>
           ) : null}
-          {optionsProps.imageTime ? (
-            <div>Image Time Limit: {convertMsToMinutesSeconds(optionsProps.imageTime)}</div>
+          {optionsProps.questionTime ? (
+            <div>Question Time Limit: {convertMsToMinutesSeconds(optionsProps.questionTime)}</div>
           ) : null}
         </div>
       ) : null}
@@ -84,7 +84,7 @@ export default function StartScreen({
             <button
               disabled={!customGameName.trim() || !!createdGameId}
               className={cls(
-                'gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-6 py-1 hover:scale-110 transition-transform drop-shadow-lg text-2xl',
+                'font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-6 py-1 hover:scale-110 transition-transform drop-shadow-lg text-2xl',
                 {
                   'opacity-50': !customGameName.trim() || !!createdGameId,
                 }
@@ -103,7 +103,7 @@ export default function StartScreen({
                       name: customGameName.trim(),
                       rounds,
                       roundTime: optionsProps.roundTime,
-                      imageTime: optionsProps.imageTime,
+                      questionTime: optionsProps.questionTime,
                     }),
                   })
                   const data = await res.json()
@@ -147,7 +147,7 @@ export default function StartScreen({
               </p>
               <div className="flex flex-row justify-center items-center">
                 <button
-                  className="gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-6 py-1 hover:scale-110 transition-transform drop-shadow-lg text-2xl"
+                  className="font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-6 py-1 hover:scale-110 transition-transform drop-shadow-lg text-2xl"
                   onClick={() => window.location.replace(`/game/custom/${createdGameId}`)}
                 >
                   Play
@@ -171,7 +171,7 @@ export default function StartScreen({
           }}
           disabled={gameType === CHALLENGE.random ? false : !gameId}
           className={cls(
-            'gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-6 py-1 hover:scale-110 transition-transform drop-shadow-lg text-2xl',
+            'font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-6 py-1 hover:scale-110 transition-transform drop-shadow-lg text-2xl',
             { 'opacity-50': gameType === CHALLENGE.random ? false : !gameId }
           )}
         >
@@ -186,16 +186,16 @@ export type OptionsProps = ReturnType<typeof useOptions>
 
 export function useOptions(_gameType: CHALLENGE, _customGameId: string | null) {
   const [roundTime, setRoundTime] = React.useState(0)
-  const [imageTime, setImageTime] = React.useState(0)
-  return { roundTime, imageTime, setRoundTime, setImageTime }
+  const [questionTime, setQuestionTime] = React.useState(0)
+  return { roundTime, questionTime, setRoundTime, setQuestionTime }
 }
 
-function Options({ roundTime, setRoundTime, imageTime, setImageTime }: OptionsProps) {
+function Options({ roundTime, setRoundTime, questionTime, setQuestionTime }: OptionsProps) {
   const enabled = true
   return (
     <div className="relative p-2">
       <div className="max-w-md flex flex-col gap-5">
-        <h3 className="text-2xl gwfont text-center">Options</h3>
+        <h3 className="text-2xl font-trajan text-center">Options</h3>
         <div className="flex flex-col gap-1">
           <SliderOuter
             label="Round Time Limit"
@@ -216,12 +216,12 @@ function Options({ roundTime, setRoundTime, imageTime, setImageTime }: OptionsPr
         </div>
         <div className="flex flex-col gap-1">
           <SliderOuter
-            label="Image Time Limit"
-            value={imageTime}
+            label="Question Time Limit"
+            value={questionTime}
             min={0}
             max={1_000 * 60 * 5}
             step={5_000}
-            onChange={setImageTime}
+            onChange={setQuestionTime}
             renderValue={(v) => (
               <span className="tabular-nums" style={{ fontFamily: 'Arial' }}>
                 {v === 0 ? <FaInfinity /> : convertMsToMinutesSeconds(v)}
@@ -229,14 +229,13 @@ function Options({ roundTime, setRoundTime, imageTime, setImageTime }: OptionsPr
             )}
           />
           <p className="flex flex-row gap-1 mx-3">
-            <FaInfoCircle className="w-10 mt-1" /> How long before the image disappears, you can still guess on the map
-            until the round ends though
+            <FaInfoCircle className="w-10 mt-1" /> How long before the question prompt disappears
           </p>
         </div>
       </div>
       {enabled ? null : (
         <div className="absolute inset-0 bg-stone-800 bg-opacity-70 rounded-md flex flex-col justify-center items-center overflow-hidden">
-          <div className="-rotate-45 transform inline-block gwfont text-xl">Work in progress</div>
+          <div className="-rotate-45 transform inline-block font-trajan text-xl">Work in progress</div>
         </div>
       )}
     </div>

@@ -3,9 +3,7 @@ import { dehydrate, QueryClient, useQueries } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
 import { avatar, cleanUsername, formatDate, getUserStyles } from '~/util'
-import AccountNamePrompt from '~/components/primitives/AccountNamePrompt'
 import cls from 'classnames'
 import UserLinks from '~/components/primitives/UserLinks'
 import { CHALLENGE } from '~/types'
@@ -27,7 +25,6 @@ export default function Index() {
       },
     ],
   })
-  const { data: session } = useSession()
 
   if (!user) return null
 
@@ -41,23 +38,41 @@ export default function Index() {
   return (
     <div className="flex justify-center items-center text-white">
       <div className="flex flex-col gap-2 justify-center items-center max-w-5xl w-full px-2 sm:px-4 pt-5">
-        <div className="relative aspect-square" style={{ width: '25vmin', maxWidth: 200 }}>
+        <div className="relative aspect-square" style={{ width: '25vmin', maxWidth: 100 }}>
           <Image
             src={avatar(user.image)}
             layout="fill"
             className={cls('rounded-full drop-shadow-md', userStyles.border)}
           />
         </div>
-        <div className="flex flex-row gap-2 justify-center items-center mb-3 text-4xl sm:text-6xl">
-          <div className={cls('gwfont', userStyles.text)}>{cleanUsername(user.username)}</div>
+        <div className="flex flex-row gap-2 justify-center items-center text-4xl sm:text-6xl">
+          <a href={user?.lodestoneData?.url} className={cls('font-trajan', userStyles.text)}>
+            {cleanUsername(user?.lodestoneData?.name || user.username)}
+          </a>
           <UserLinks username={user.username} />
         </div>
-        {(session?.user as any)?.id === user.id ? <AccountNamePrompt /> : null}
+        <div className="flex flex-row gap-2 justify-center items-center text-2xl sm:text-3xl">
+          <span className={cls('font-trajan', userStyles.text)}>{user?.lodestoneData?.title}</span>
+          <UserLinks username={user.username} />
+        </div>
+        <div className="flex flex-row gap-2 justify-center items-center">
+          <div className="relative" style={{ height: 40, width: 40 }}>
+            {user?.lodestoneData?.freeCompany?.crest.map((i) => (
+              <img src={i} key={i} className="absolute inset-0" />
+            ))}
+          </div>
+          <a
+            className="text-center text-lg"
+            href={`https://na.finalfantasyxiv.com${user?.lodestoneData?.freeCompany?.url}`}
+          >
+            {user?.lodestoneData?.freeCompany?.name}
+          </a>
+        </div>
         <div
-          className="flex flex-col justify-center bg-brown-brushed px-6 pt-4 pb-10 drop-shadow-lg w-full text-xl"
+          className="flex flex-col justify-center bg-brown-brushed px-6 pt-4 pb-5 mt-2 drop-shadow-lg w-full text-xl"
           style={{ minHeight: '20vh' }}
         >
-          <div className="gwfont grid grid-cols-2 lg:grid-cols-5 text-center text-sm lg:text-base">
+          <div className="font-trajan grid grid-cols-2 lg:grid-cols-5 text-center text-sm lg:text-base">
             <div className="flex flex-col justify-center items-center col-span-2 lg:col-span-1">
               <div>Total Games</div>
               <div className="opacity-80">{user.totalGames}</div>
@@ -80,7 +95,7 @@ export default function Index() {
             </div>
           </div>
           <div
-            className="flex flex-row gap-2 px-3 py-1 text-2xl gwfont mt-2"
+            className="flex flex-row gap-2 px-3 py-1 text-2xl font-trajan mt-2"
             style={{
               backgroundColor: 'rgba(96, 76, 52, 0.5)',
             }}
@@ -112,7 +127,7 @@ export default function Index() {
               </div>
             </div>
           ))}
-          <div className="gwfont text-center mt-1 text-sm opacity-75">
+          <div className="font-trajan text-center mt-5 text-sm opacity-75">
             Showing {user.games.length} of {user.totalGames} games
           </div>
         </div>

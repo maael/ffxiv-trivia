@@ -1,6 +1,6 @@
-const title = 'Guild Wars 2 | Geo Guesser'
-const description = 'How well do you know the world of Guild Wars 2?'
-const url = 'https://gw2-geoguesser.mael.tech'
+const title = 'FFXIV Trivia'
+const description = 'How well do you know the world of Final Fantasy XIV?'
+const url = 'https://ffxiv-trivia.mael.tech'
 
 export default {
   title,
@@ -17,7 +17,7 @@ export default {
         url: `${url}/preview.png`,
         width: 1200,
         height: 627,
-        alt: 'Guild Wars 2 | Geo Guesser',
+        alt: 'FFXIV Trivia',
       },
     ],
   },

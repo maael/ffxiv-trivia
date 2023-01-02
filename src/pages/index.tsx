@@ -1,65 +1,18 @@
 import Link from 'next/link'
 import * as React from 'react'
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
-import getDaysInMonth from 'date-fns/getDaysInMonth'
-import Image from 'next/image'
 import { FaArrowRight, FaBeer, FaCogs, FaGithub, FaLink, FaReddit } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
-import { avatar } from '~/util'
 import { CHALLENGE } from '~/types'
 import PrizeList from '~/components/PrizeList'
 import GamesBlock from '~/components/primitives/GamesBlock'
-import { EVENTS } from '~/components/hooks/useFathom'
-import { useSession } from 'next-auth/react'
 
 const Countdown = dynamic(() => import('../components/primitives/RankedResetTimer'), {
   ssr: false,
   loading: () => null,
 })
 
-function sum(obj: any, multiplier: number) {
-  if (!obj) return 0
-  const perThing = Object.values(obj.prizes || {}).reduce<number>((acc, p) => acc + Number(`${p}`.replace('g', '')), 0)
-  return perThing * multiplier
-}
-
-function SightseeingAppBanner({ fathom }: { fathom?: any }) {
-  const { data: session } = useSession()
-  return session?.user ? (
-    <div className="bg-brown-brushed pt-5 pb-7 px-5 flex flex-col gap-3 justify-center items-center text-center max-w-3xl text-base">
-      <h2 className="text-xl md:text-2xl rainbow-text uppercase">Want to explore Tyria, but even more?</h2>
-      <p>Thank you for being a player of Guild Wars 2 Geoguesser!</p>
-      <p>
-        I'd like to invite you to try out the beta for 🔗
-        <a
-          href="https://gw2-sightseeing.mael.tech/"
-          className="underline"
-          onClick={() => {
-            fathom?.trackGoal(EVENTS.SightseeingAppClick, 0)
-          }}
-        >
-          Guild Wars 2 Sightseeing App →
-        </a>
-      </p>
-      <p>
-        Use it to take the exploration into the game, having to actually get to the shown location in game. Other
-        benefits include easily submitting suggestions for Geoguesser! Find out more at the link above!
-      </p>
-      <p>
-        It's still a work in progress - but all data from it (completions/challenges) should carry over once it's done.
-      </p>
-      <p>
-        Any issues or feedback? Let me know on{' '}
-        <a href="https://www.reddit.com/user/maael" className="underline">
-          Reddit
-        </a>{' '}
-        or Discord (maael#2482).
-      </p>
-    </div>
-  ) : null
-}
-
-export default function Index({ fathom }: any) {
+export default function Index(_: any) {
   const { data, isLoading } = useQuery(['home-info'], () => fetch('/api/internal/home_info').then((r) => r.json()))
   const {
     daily,
@@ -77,7 +30,9 @@ export default function Index({ fathom }: any) {
     <>
       <div className="flex flex-col justify-center items-center text-white">
         <div className="flex flex-col gap-7 justify-center items-center max-w-5xl w-full sm:text-lg px-2">
-          <div className="text-2xl sm:text-4xl text-center mt-3 sm:mt-7 gwfont">Think you know Tyria?</div>
+          <div className="text-2xl sm:text-4xl text-center mt-3 sm:mt-7 font-trajan">
+            Think you know Final Fantasy XIV?
+          </div>
           <div className="flex flex-col justify-center items-center gap-2 w-full px-2 my-1">
             <Link href="/game/random">
               <a className="-mt-2 text-2xl text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-2 justify-center items-center">
@@ -85,7 +40,7 @@ export default function Index({ fathom }: any) {
               </a>
             </Link>
             <p className="max-w-xs text-center -mt-1 text-sm opacity-75">
-              Play a quick game with some random locations!
+              Play a quick game with some random questions!
             </p>
             <Link href="/game/custom">
               <a className="mt-4 text-2xl text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-2 justify-center items-center">
@@ -93,9 +48,9 @@ export default function Index({ fathom }: any) {
               </a>
             </Link>
             <p className="max-w-xs text-center -mt-1 text-sm opacity-75">
-              Make a shareable game with fixed locations, perfect for friend groups or sharing with stream viewers!
+              Make a shareable game with fixed questions, perfect for friend groups or sharing with stream viewers!
             </p>
-            <div className="gwfont text-xl sm:text-3xl mt-2">Ranked Games</div>
+            <div className="font-trajan text-xl sm:text-3xl mt-2">Ranked Games</div>
             <div className="text-center max-w-md">
               <Link href="/auth">
                 <a className="underline">Sign up or Log in</a>
@@ -105,15 +60,7 @@ export default function Index({ fathom }: any) {
             <div className="text-center max-w-md my-1">
               You can only attempt each ranked game once until a new one is released, so play carefully!
             </div>
-            <div className="text-center max-w-md mt-1 flex flex-col sm:flex-row gap-1 justify-center items-center gwfont">
-              <div className="text-center flex flex-row gap-1 justify-center items-center gwfont text-4xl">
-                {sum(daily, getDaysInMonth(new Date())) + sum(weekly, 4) + sum(monthly, 1)}{' '}
-                <Image src="/ui/gold.png" height={30} width={30} title="In-game gold" />
-              </div>
-              In prizes this month
-            </div>
-            <div className="text-center max-w-md mb-1 text-sm opacity-60">Allow a delay when receiving prizes</div>
-            <div className="flex flex-col sm:flex-row gap-1 text-center mb-2">
+            <div className="font-trajan flex flex-col sm:flex-row gap-1 text-center my-2 text-2xl">
               Time until new Ranked game: <Countdown />
             </div>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-2">
@@ -122,7 +69,6 @@ export default function Index({ fathom }: any) {
               <RankedGameBlock type={CHALLENGE.monthly} challenge={monthly} />
             </div>
           </div>
-          <SightseeingAppBanner fathom={fathom} />
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full">
             <GamesBlock type="time" games={recentRandomGames} isLoading={isLoading} label={'Recent Quick Games'} />
           </div>
@@ -154,13 +100,9 @@ export default function Index({ fathom }: any) {
             <FaReddit />
           </a>
         </span>
-        <span className="flex flex-row gap-1 justify-center items-center">
-          <Image src={avatar('Gorrik-Icon.jpg')} height={15} width={15} className="rounded-full" />
-          Mael.3259 in game
-        </span>
+        <span className="flex flex-row gap-1 justify-center items-center">Mael'a Niwa [Zodiark] in game</span>
       </div>
       <div className="max-w-3xl mx-auto text-white pb-2 text-xs flex flex-row gap-5 justify-center items-end text-center">
-        <a href="https://elonian-gallery.com/">Avatars © Ilona Iske 2022</a>
         <a href="https://www.buymeacoffee.com/matte" className="flex flex-row gap-1 justify-center items-center">
           Enjoying the game? Get me a beer. <FaBeer />
         </a>
@@ -178,7 +120,7 @@ function RankedGameBlock({
 }) {
   return challenge && !challenge.error ? (
     <div className="flex flex-col gap-1 items-center">
-      <h3 className="gwfont text-2xl -mb-0.5">{type}</h3>
+      <h3 className="font-trajan text-2xl -mb-0.5">{type}</h3>
       <PrizeList prizes={challenge?.prizes} />
       <Link href={`/game/${type}`}>
         <a className="text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-1 items-center justify-center">

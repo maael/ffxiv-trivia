@@ -17,24 +17,28 @@ export default function Header() {
             <div className="relative h-full aspect-square">
               <Image src={logoImg} layout="fill" />
             </div>
-            <h1 className="gwfont text-xl hidden sm:block">Guild Wars 2 | Geo Guesser</h1>
+            <a>
+              <h1 className="font-trajan text-xl hidden sm:block">FFXIV Trivia</h1>
+            </a>
           </div>
         </Link>
         <Link href="/game/random">
-          <button className="gwfont bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg flex flex-row gap-1 justify-center items-center h-full">
+          <button className="font-trajan bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg flex flex-row gap-1 justify-center items-center h-full">
             Play <FaArrowRight />
           </button>
         </Link>
         {session ? (
           <Link href={`/user/${session.user?.name}`}>
-            <div className="gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
+            <div className="cursor-link font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
               <Image
                 src={avatar(session.user?.image)}
                 width={20}
                 height={20}
                 className={cls('rounded-full', userStyles.border)}
               />
-              <span className={cls(userStyles.text)}>{session.user?.name}</span>
+              <span className={cls(userStyles.text)}>
+                {(session.user as any)?.lodestoneData?.name || session.user?.name}
+              </span>
             </div>
           </Link>
         ) : null}
@@ -44,14 +48,14 @@ export default function Header() {
               await signOut({ redirect: false })
               window.location.assign('/')
             }}
-            className="gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full"
+            className="font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full"
           >
             <span className="hidden sm:block">Sign Out</span>
             <FaSignOutAlt />
           </button>
         ) : (
           <Link href="/auth">
-            <div className="gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
+            <div className="cursor-link font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
               <FaUser />
               Sign In | Register
             </div>

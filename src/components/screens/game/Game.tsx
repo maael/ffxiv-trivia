@@ -2,19 +2,18 @@ import * as React from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { EVENTS, Fathom } from '~/components/hooks/useFathom'
-import { CHALLENGE } from '~/types'
+import { CHALLENGE, ChallengeOption } from '~/types'
 import { OptionsProps } from './Start'
 import Countdown from 'react-countdown'
 import { FaTwitter } from 'react-icons/fa'
+import cls from 'classnames'
 
-const Map = (_: any) => <div>Map</div>
-
-export type Game = Array<{
-  _id: string
-  image: string
-  location: [number | null, number | null]
-  score?: null | number
-}>
+export type Game = Array<
+  ChallengeOption & {
+    _id: string
+    score?: null | number
+  }
+>
 
 async function saveGame(gameType: CHALLENGE, gameId: string | undefined, game: Game, timeMs: number) {
   fetch('/api/internal/game', {
@@ -74,7 +73,7 @@ export default function GameScreen({
   reset,
   stopTimer,
   timer,
-  imageTime,
+  questionTime,
   roundTime,
 }: {
   options: any
@@ -102,7 +101,7 @@ export default function GameScreen({
     fathom.trackGoal(EVENTS.StartGame, 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const [imageVisible, setImageVisible] = React.useState(true)
+  const [questionVisible, setQuestionVisible] = React.useState(true)
   const onRoundLimitComplete = React.useCallback(() => {
     setGame((g) => {
       const last = { ...g[g.length - 1], score: 0 }
@@ -118,17 +117,18 @@ export default function GameScreen({
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
-  const onImageLimitComplete = React.useCallback(() => {
-    console.info('[image:limit]')
-    setImageVisible(false)
+  const onQuestionLimitComplete = React.useCallback(() => {
+    console.info('[question:limit]')
+    setQuestionVisible(false)
   }, [])
+  const hasGuessed = typeof lastItem?.score === 'number'
   return (
     <div
       suppressHydrationWarning
       className="bg-black-brushed bg-gray-900 flex flex-col justify-center items-center flex-1 w-full relative"
     >
-      <div className="bg-brown-brushed flex flex-col justify-center items-center gap-0 md:absolute top-1 right-0 text-white px-8 lg:px-12 lg:text-xl pt-2 pb-4 text-base rounded-t-lg my-4 md:my-0 mx-2 drop-shadow-xl">
-        <div className="flex flex-row lg:flex-col gap-4 sm:gap-10 lg:gap-0 justify-center lg:items-start items-center w-full">
+      <div className="bg-brown-brushed flex flex-col justify-center items-center gap-0 md:absolute top-4 right-4 text-white px-8 lg:px-12 lg:text-2xl pt-2 pb-4 text-lg rounded-lg my-4 md:my-0 mx-2 drop-shadow-xl">
+        <div className="flex flex-col gap-1 sm:gap-10 lg:gap-0 justify-center lg:items-start items-center w-full">
           <div>
             Round: {game.length}/{maxRounds}
           </div>
@@ -140,8 +140,8 @@ export default function GameScreen({
             </span>
           </div>
         </div>
-        {roundTime || imageTime ? (
-          <div className="flex flex-row lg:flex-col gap-4 sm:gap-10 lg:gap-0 justify-center lg:items-start items-center w-full">
+        {roundTime || questionTime ? (
+          <div className="flex flex-col gap-1 sm:gap-10 lg:gap-0 justify-center lg:items-start items-center w-full">
             {roundTime ? (
               <div>
                 Round Limit:{' '}
@@ -159,7 +159,7 @@ export default function GameScreen({
                 </span>
               </div>
             ) : null}
-            {imageTime ? (
+            {questionTime ? (
               <div className="tabular-nums" style={{ fontFamily: 'Arial' }}>
                 Image Limit:{' '}
                 <span className="tabular-nums" style={{ fontFamily: 'Arial' }}>
@@ -168,8 +168,8 @@ export default function GameScreen({
                   ) : (
                     <TimeLimit
                       key={lastItem._id}
-                      time={imageTime}
-                      onComplete={onImageLimitComplete}
+                      time={questionTime}
+                      onComplete={onQuestionLimitComplete}
                       isFinished={typeof lastItem.score === 'number'}
                     />
                   )}
@@ -179,41 +179,47 @@ export default function GameScreen({
           </div>
         ) : null}
       </div>
-      <div
-        className="flex flex-row w-full h-full justify-center items-center bg-contain bg-no-repeat bg-top sm:bg-left lg:bg-center"
-        style={{ backgroundImage: imageVisible ? `url(${lastItem?.image})` : '' }}
-      />
-      <div className="absolute bottom-16 sm:bottom-2 lg:bottom-10 left-0 sm:left-1/2 lg:left-auto right-0 md:right-10 lg:w-1/2 aspect-video scale-100 lg:scale-50 lg:hover:scale-100 origin-bottom-right transition-all opacity-60 hover:opacity-100 shadow-lg overflow-hidden rounded-xl">
-        <Map
-          guessId={lastItem?._id}
-          guessLocation={lastItem?.location}
-          showGuessLocation={typeof lastItem?.score === 'number'}
-          onGuess={(score) => {
-            setGame((g) => {
-              const last = { ...g[g.length - 1], score }
-              const updatedGame = g.slice(0, -1).concat(last)
-              const canFinish = isFinished(updatedGame)
-              console.info('[guess]', { canFinish, updatedGame })
-              if (canFinish) {
-                stopTimer()
-                fathom.trackGoal(EVENTS.FinishGame, 0)
-                if (session) void saveGame(gameType, gameId, updatedGame, timer.differenceMs)
-              }
-              return updatedGame
-            })
-          }}
-        />
+      <div className="flex flex-col gap-6 w-full h-full justify-center items-center text-white text-5xl sm:text-6xl">
+        <h2 className={cls({ hidden: !questionVisible })}>{lastItem?.question}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full px-2 sm:px-10 text-4xl">
+          {lastItem?.options.map((o) => (
+            <button
+              key={o.option}
+              className={cls('bg-brown-brushed px-10 py-2 rounded-full opacity-90 hover:opacity-100', {
+                'bg-green-600': hasGuessed && o.correct,
+                'bg-red-600': hasGuessed && !o.correct,
+              })}
+              onClick={() => {
+                const score = o.correct ? 1 : 0
+                setGame((g) => {
+                  const last = { ...g[g.length - 1], score }
+                  const updatedGame = g.slice(0, -1).concat(last)
+                  const canFinish = isFinished(updatedGame)
+                  console.info('[guess]', { canFinish, updatedGame })
+                  if (canFinish) {
+                    stopTimer()
+                    fathom.trackGoal(EVENTS.FinishGame, 0)
+                    if (session) void saveGame(gameType, gameId, updatedGame, timer.differenceMs)
+                  }
+                  return updatedGame
+                })
+              }}
+            >
+              {o.option}
+            </button>
+          ))}
+        </div>
       </div>
       {!showFinished && lastItem?.score !== null && lastItem?.score !== undefined && game.length <= maxRounds ? (
         <button
-          className="z-50 isolate gwfont bg-brown-brushed text-white left-auto sm:left-2 lg:left-auto lg:hover:scale-125 transition-transform flex flex-col absolute bottom-1.5 sm:bottom-0.5 lg:bottom-4 px-10 py-2 text-2xl lg:text-5xl drop-shadow-md rounded-full"
+          className="z-50 isolate font-trajan bg-brown-brushed text-white left-auto sm:left-2 lg:left-auto lg:hover:scale-125 transition-transform flex flex-col absolute bottom-1.5 sm:bottom-0.5 lg:bottom-4 px-10 py-2 text-2xl lg:text-5xl drop-shadow-md rounded-full"
           onClick={() => {
             if (currentGameIsFinished) {
               setShowFinished(true)
             } else {
               setGame((g) => g.concat(options[game.length % options.length]))
             }
-            setImageVisible(true)
+            setQuestionVisible(true)
           }}
         >
           {currentGameIsFinished ? 'Show Results' : 'Next'}
@@ -222,28 +228,24 @@ export default function GameScreen({
       {showFinished ? (
         <div className="bg-opacity-50 bg-gray-800 absolute inset-0 flex flex-col justify-center items-center">
           <div className="flex flex-col text-white bg-brown-brushed drop-shadow-xl px-2 md:px-10 py-5 justify-center text-xl md:w-1/3 m-3">
-            <h2 className="gwfont text-5xl text-center">Finished!</h2>
-            <h3 className="gwfont text-3xl text-center">Time: {timer.formatted}</h3>
+            <h2 className="font-trajan text-5xl text-center">Finished!</h2>
+            <h3 className="font-trajan text-3xl text-center">Time: {timer.formatted}</h3>
             <div className="flex flex-col gap-1 mt-3 mb-1">
               {game.map((g, i) => (
-                <div key={g._id} className="flex flex-row items-center gap-1 bg-black-brushed px-3 md:px-10 py-2">
-                  <div className="pr-2 md:pr-10">{i + 1}.</div>
-                  <div className="max-h-20 h-full aspect-video relative">
-                    <picture className="absolute inset-0">
-                      <img src={g.image} />
-                    </picture>
-                  </div>
-                  <div className="text-right flex-1">Score: {g.score}</div>
+                <div key={g._id} className="flex flex-row items-center gap-2 bg-black-brushed px-3 md:px-10 py-2">
+                  <div className="pr-2 md:pr-5">{i + 1}.</div>
+                  <div className="overflow-hidden text-ellipsis flex-1 whitespace-nowrap font-trajan">{g.question}</div>
+                  <div className="text-right flex-0">Correct: {g.score ? 'Y' : 'N'}</div>
                 </div>
               ))}
             </div>
-            <div className="gwfont text-4xl text-center py-3">
-              Total: {total} / {500 * maxRounds}
+            <div className="font-trajan text-4xl text-center py-3">
+              Total: {total} / {maxRounds}
             </div>
             <div className="flex flex-col xl:flex-row justify-center items-center mt-1 gap-2 xl:gap-5 text-lg lg:text-2xl">
               {gameType === CHALLENGE.random ? (
                 <button
-                  className="w-full lg:w-auto gwfont bg-black-brushed text-white hover:scale-110 transition-transform flex flex-col px-10 py-2 drop-shadow-md rounded-full items-center"
+                  className="w-full lg:w-auto font-trajan bg-black-brushed text-white hover:scale-110 transition-transform flex flex-col px-10 py-2 drop-shadow-md rounded-full items-center"
                   onClick={async () => {
                     fathom.trackGoal(EVENTS.StartGame, 0)
                     const newGame = await reset()
@@ -254,16 +256,16 @@ export default function GameScreen({
                 </button>
               ) : gameId ? (
                 <Link href={`/leaderboard/${gameId}`}>
-                  <a className="w-full lg:w-auto gwfont bg-black-brushed text-white hover:scale-110 transition-transform flex flex-col px-10 py-2 drop-shadow-md rounded-full items-center">
+                  <a className="w-full lg:w-auto font-trajan bg-black-brushed text-white hover:scale-110 transition-transform flex flex-col px-10 py-2 drop-shadow-md rounded-full items-center">
                     Leaderboard
                   </a>
                 </Link>
               ) : null}
               <a
-                className="w-full lg:w-auto gwfont bg-black-brushed text-white hover:scale-110 transition-transform flex flex-row gap-2 justify-center items-center px-10 py-2 drop-shadow-md rounded-full"
+                className="w-full lg:w-auto font-trajan bg-black-brushed text-white hover:scale-110 transition-transform flex flex-row gap-2 justify-center items-center px-10 py-2 drop-shadow-md rounded-full"
                 target="_blank"
                 rel="noreferrer"
-                href={`https://twitter.com/intent/tweet?text=I just got ${total} points in Guild Wars 2 Geoguesser${
+                href={`https://twitter.com/intent/tweet?text=I just got ${total} points in FFXIV Trivia${
                   gameType === CHALLENGE.daily
                     ? "'s daily challenge"
                     : gameType === CHALLENGE.weekly
@@ -273,12 +275,12 @@ export default function GameScreen({
                     : ''
                 } in ${
                   timer.formatted
-                }! Think you can beat me?&hashtags=GuildWars2,gw2geoguesser&url=https://gw2-geoguesser.mael.tech/&via=GW2Geoguesser`}
+                }! Think you can beat me?&hashtags=FFXIV,ffxivtrivia&url=https://ffxiv-trivia.mael.tech/&via=GW2Geoguesser`}
               >
                 <FaTwitter /> Tweet <span className="hidden lg:block">score</span>
               </a>
               <Link href="/">
-                <a className="w-full lg:w-auto gwfont bg-black-brushed text-white hover:scale-110 transition-transform flex flex-col px-10 py-2 drop-shadow-md rounded-full items-center">
+                <a className="w-full lg:w-auto font-trajan bg-black-brushed text-white hover:scale-110 transition-transform flex flex-col px-10 py-2 drop-shadow-md rounded-full items-center">
                   Finish
                 </a>
               </Link>

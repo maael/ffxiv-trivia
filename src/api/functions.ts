@@ -7,6 +7,15 @@ import Challenge from '~/db/models/challenges'
 import ChallengeOption from '~/db/models/challengeOption'
 import User from '~/db/models/user'
 
+function handleNoGame(e: Error) {
+  if (e.message.startsWith('No challenge:')) {
+    console.warn(e.message)
+    return null
+  } else {
+    throw e
+  }
+}
+
 const getOneGame: ApiOneHandler = async ({ id, secondaryId, sort, limit = 10 }) => {
   let challengeId = id
   let challenge: WithDoc<TChallenge> | undefined | null = undefined
@@ -27,6 +36,9 @@ const getOneGame: ApiOneHandler = async ({ id, secondaryId, sort, limit = 10 }) 
     challenge = await Challenge.findOne(filterObject, { _id: 1, name: 1, type: 1, createdAt: 1, settings: 1 }).sort({
       createdAt: 'desc',
     })
+    if (!challenge) {
+      throw new Error(`No challenge: ${challengeId}`)
+    }
     challengeId = challenge?._id
   }
   if (!challengeId) {
@@ -37,7 +49,7 @@ const getOneGame: ApiOneHandler = async ({ id, secondaryId, sort, limit = 10 }) 
     delete filterObj.challenge
     filterObj.challengeType = CHALLENGE.random
   }
-  const filter = Game.find(filterObj).populate('userId', 'username image style')
+  const filter = Game.find(filterObj).populate('userId', 'username image style lodestoneData.name')
   if (sort === 'score') {
     if (challenge?.settings?.sort === 'score-time') {
       console.info('[sort]', challenge?.name, 'score-time')
@@ -137,13 +149,13 @@ const handlers: ApiHandlers = {
           weekly,
           monthly,
         ] = await Promise.all([
-          getOneGame({ id: 'daily', sort: 'time', limit: 10, req: {} as any, res: {} as any }),
-          getOneGame({ id: 'daily', sort: 'score', limit: 10, req: {} as any, res: {} as any }),
-          getOneGame({ id: 'weekly', sort: 'time', limit: 10, req: {} as any, res: {} as any }),
-          getOneGame({ id: 'weekly', sort: 'score', limit: 10, req: {} as any, res: {} as any }),
-          getOneGame({ id: 'monthly', sort: 'time', limit: 10, req: {} as any, res: {} as any }),
-          getOneGame({ id: 'monthly', sort: 'score', limit: 10, req: {} as any, res: {} as any }),
-          getOneGame({ id: 'random', sort: 'time', limit: 10, req: {} as any, res: {} as any }),
+          getOneGame({ id: 'daily', sort: 'time', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
+          getOneGame({ id: 'daily', sort: 'score', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
+          getOneGame({ id: 'weekly', sort: 'time', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
+          getOneGame({ id: 'weekly', sort: 'score', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
+          getOneGame({ id: 'monthly', sort: 'time', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
+          getOneGame({ id: 'monthly', sort: 'score', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
+          getOneGame({ id: 'random', sort: 'time', limit: 10, req: {} as any, res: {} as any }).catch(handleNoGame),
           getOneChallenge({ id: 'daily', req: {} as any, res: {} as any }),
           getOneChallenge({ id: 'weekly', req: {} as any, res: {} as any }),
           getOneChallenge({ id: 'monthly', req: {} as any, res: {} as any }),
@@ -198,7 +210,10 @@ const handlers: ApiHandlers = {
   user: {
     get: {
       one: async ({ id }) => {
-        const user = await User.findOne({ username: id }, { _id: 1, username: 1, createdAt: 1, image: 1, style: 1 })
+        const user = await User.findOne(
+          { username: id },
+          { _id: 1, username: 1, createdAt: 1, image: 1, style: 1, lodestoneData: 1 }
+        )
         if (!user) throw new Error('Not found')
         const baseQuery = Game.find({ userId: user._id })
         const [userGames, totalGames] = await Promise.all([
@@ -209,6 +224,7 @@ const handlers: ApiHandlers = {
           id: user._id,
           username: user.username,
           image: user.image,
+          lodestoneData: user.lodestoneData,
           createdAt: user.createdAt,
           style: user.style,
           games: userGames,
@@ -220,7 +236,7 @@ const handlers: ApiHandlers = {
         if (!session) {
           throw new Error('Required session')
         }
-        return User.findById((session.user as any).id, { gw2Account: 1 }) as any
+        return User.findById((session.user as any).id, { lodestoneUrl: 1 }) as any
       },
     },
     put: {
@@ -231,18 +247,10 @@ const handlers: ApiHandlers = {
         }
         await User.updateOne(
           { _id: (session.user as any).id },
-          { gw2Account: body.gw2Account },
-          { projection: { gw2Account: 1 } }
+          { lodestoneUrl: body.lodestoneUrl },
+          { projection: { lodestoneUrl: 1 } }
         )
-        return { gw2Account: body.gw2Account } as any
-      },
-    },
-  },
-  avatars: {
-    get: {
-      many: async () => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        return require('../../data/avatars.json') as string[]
+        return { lodestoneUrl: body.lodestoneUrl } as any
       },
     },
   },

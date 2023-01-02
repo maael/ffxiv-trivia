@@ -22,7 +22,7 @@ export const ChallengeOptionsMap: Partial<Record<CHALLENGE, { rounds: number }>>
 }
 
 export function avatar(name: string | undefined | null) {
-  return `https://gw2-sightseeing.maael.xyz/avatars/${name || 'Toxx_2BIcon.jpg'}`
+  return name || '/'
 }
 
 export function getRandomArrayItem<T>(items: T[]) {

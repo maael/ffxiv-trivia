@@ -16,11 +16,8 @@ export const ONE_S = 1_000
 
 export default function SliderOuter(props: Props) {
   return (
-    <div
-      className="flex-1 border rounded-md flex relative overflow-hidden bg-stone-400 bg-opacity-10"
-      style={{ borderColor: '#2D1E0E' }}
-    >
-      <div className="bg-brown-brushed px-2 py-1 flex-0" style={{ backgroundColor: '#2D1E0E' }} title={props.title}>
+    <div className="flex-1 border rounded-md flex relative overflow-hidden bg-stone-400 bg-opacity-10 border-gold">
+      <div className="bg-brown-brushed px-2 py-1 flex-0" title={props.title}>
         {props.label}
       </div>
       <div className="px-2 flex-1 flex justify-center items-center">
@@ -54,7 +51,7 @@ export function SliderInner({ value, min, max, step = 1, onChange }: Props) {
                 borderRadius: '4px',
                 background: getTrackBackground({
                   values,
-                  colors: ['#4D3520', '#9ca3af'],
+                  colors: ['#60A5FA', '#9ca3af'],
                   min,
                   max,
                   rtl: false,

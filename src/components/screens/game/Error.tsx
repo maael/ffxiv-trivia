@@ -17,7 +17,7 @@ function AccountError(_: { error: string }) {
       <div>Need to have an account to create custom games, and play ranked or custom games!</div>
       <div className="flex flex-row">
         <Link href="/auth">
-          <a className="gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-5 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
+          <a className="font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-5 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
             Log in or Sign up here!
           </a>
         </Link>
@@ -32,7 +32,7 @@ function AttemptsError({ error }: { error: string }) {
       <div>{error}</div>
       <div className="flex flex-row">
         <Link href="/">
-          <a className="gwfont flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-5 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
+          <a className="font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-5 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
             Go back and find another game!
           </a>
         </Link>

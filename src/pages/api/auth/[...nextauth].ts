@@ -33,6 +33,8 @@ export const authOptions: Parameters<typeof NextAuth>[2] = {
         ;(session.user as any).id = token.uid
         // eslint-disable-next-line @typescript-eslint/no-extra-semi
         ;(session.user as any).style = token.style
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
+        ;(session.user as any).lodestoneData = token.lodestoneData
       }
       return session
     },
@@ -41,7 +43,10 @@ export const authOptions: Parameters<typeof NextAuth>[2] = {
         token.uid = user.id
         try {
           // eslint-disable-next-line @typescript-eslint/no-extra-semi
-          ;(token as any).style = token.email
+          const data = JSON.parse(token.email || '{}')
+          ;(token as any).lodestoneData = data.lodestoneData
+          // eslint-disable-next-line @typescript-eslint/no-extra-semi
+          ;(token as any).style = data.style
         } catch (e) {
           console.warn('[jwt:style:warn]', e.message)
         } finally {
@@ -94,7 +99,7 @@ async function signinFlow(credentials: Record<'username' | 'password', string> |
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const comparison = await (user as any).comparePassword(credentials.password)
   if (comparison) {
-    const lodestoneData = await getLodestoneData('https://na.finalfantasyxiv.com/lodestone/character/14985627/')
+    const lodestoneData = await getLodestoneData(user.lodestoneUrl)
     await user.updateOne({ lodestoneData })
     return {
       id: user._id.toString(),
@@ -107,8 +112,11 @@ async function signinFlow(credentials: Record<'username' | 'password', string> |
   }
 }
 
-async function getLodestoneData(url: string): Promise<any> {
+async function getLodestoneData(url?: string): Promise<any> {
+  if (!url) return {}
   try {
+    const lodestoneUrl = new URL(url)
+    const lodestoneId = lodestoneUrl.pathname.split('/').filter(Boolean).at(-1)
     const page = await fetch(url).then((r) => r.text())
     const $ = load(page)
     const race = $('.character-block__name').first().html()?.split('<br>')[0]?.trim()
@@ -125,6 +133,8 @@ async function getLodestoneData(url: string): Promise<any> {
       .map((_idx, el) => $(el).attr('src'))
       .toArray()
     const data = {
+      id: lodestoneId,
+      url,
       race,
       name,
       title,
@@ -140,6 +150,7 @@ async function getLodestoneData(url: string): Promise<any> {
         crest: freeCompanyCrest,
       },
     }
+    console.info('[lodestone]', 'updated', data.name)
     return data
   } catch {
     return {}
