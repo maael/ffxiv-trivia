@@ -25,7 +25,10 @@ input[type='password'] {
 
 button,
 a,
-.cursor-link {
+.cursor-link,
+input[type='checkbox'],
+select,
+option {
   cursor: url(/cursors/arr-link.cur), pointer;
 }
 

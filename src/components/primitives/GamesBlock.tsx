@@ -48,9 +48,9 @@ export default function GamesBlock({
             backgroundColor: 'rgba(96, 76, 52, 0.5)',
           }}
         >
-          <div className="w-1/3">User</div>
-          <div className="w-1/3 text-center">Score</div>
-          <div className="w-1/3 text-right">Time</div>
+          <div className="w-1/3 relative top-0.5">User</div>
+          <div className="w-1/3 text-center relative top-0.5">Score</div>
+          <div className="w-1/3 text-right relative top-0.5">Time</div>
         </div>
         {games && games.games && games.games.length > 0 ? (
           games.games.map((g, idx) => {
@@ -75,7 +75,12 @@ export default function GamesBlock({
                         width={25}
                         className={cls('rounded-full', getUserStyle.border)}
                       />{' '}
-                      <span className={cls('overflow-ellipsis overflow-hidden whitespace-nowrap', getUserStyle.text)}>
+                      <span
+                        className={cls(
+                          'overflow-ellipsis overflow-hidden whitespace-nowrap relative top-0.5',
+                          getUserStyle.text
+                        )}
+                      >
                         {cleanUsername(g.userId?.lodestoneData?.name || g.userId?.username)}
                       </span>
                     </a>
@@ -83,7 +88,7 @@ export default function GamesBlock({
                   <UserLinks username={g.userId?.username} />
                 </span>
                 <div
-                  className="w-1/5 text-center flex flex-row gap-1 justify-center items-center"
+                  className="w-1/5 text-center flex flex-row gap-1 justify-center items-center relative top-0.5"
                   title={`Time: ${g.timeMs ? convertMsToMinutesSeconds(g.timeMs) : '??:??'}`}
                 >
                   {type === 'score' && idx < 3 ? (
@@ -91,7 +96,10 @@ export default function GamesBlock({
                   ) : null}{' '}
                   {g.totalScore?.toLocaleString('en', { useGrouping: true })}
                 </div>
-                <div className="w-2/5 text-right flex justify-end items-center" suppressHydrationWarning>
+                <div
+                  className="w-2/5 text-right flex justify-end items-center relative top-0.5"
+                  suppressHydrationWarning
+                >
                   {formatDate(g.createdAt)}
                 </div>
               </div>

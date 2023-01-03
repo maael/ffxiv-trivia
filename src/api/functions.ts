@@ -105,6 +105,16 @@ const handlers: ApiHandlers = {
   challenge: {
     get: {
       one: getOneChallenge,
+      many: async ({ req, res }) => {
+        const session = await unstable_getServerSession(req, res, authOptions)
+        if (!session) {
+          throw new Error('Required session')
+        }
+        if (session.user?.name !== 'Mael') {
+          throw new Error('Wrong user')
+        }
+        return ChallengeOption.find({})
+      },
     },
     post: {
       many: async ({ body }) => {
@@ -251,6 +261,13 @@ const handlers: ApiHandlers = {
           { projection: { lodestoneUrl: 1 } }
         )
         return { lodestoneUrl: body.lodestoneUrl } as any
+      },
+    },
+  },
+  question: {
+    post: {
+      many: async ({ body }) => {
+        return ChallengeOption.create(body)
       },
     },
   },

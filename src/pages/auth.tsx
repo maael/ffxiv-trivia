@@ -14,17 +14,17 @@ export default function Auth({ fathom }: { fathom: Fathom }) {
   }, [session])
   const [type, setType] = React.useState('signin')
   return (
-    <div className="bg-brown-brushed max-w-2xl mx-auto flex flex-col gap-6 text-white px-10 pt-5 pb-7 mt-10 drop-shadow-xl rounded-md">
+    <div className="flex flex-col gap-5 justify-center items-center py-10 w-full">
       <div className="flex flex-row mx-auto rounded-lg overflow-hidden font-trajan">
         <button
           onClick={() => setType('signin')}
-          className={cls('px-4 py-1 bg-black-brushed hover:opacity-100', { 'opacity-70': type !== 'signin' })}
+          className={cls('px-4 py-1 bg-brown-brushed hover:opacity-100', { 'opacity-70': type !== 'signin' })}
         >
           Sign In
         </button>
         <button
           onClick={() => setType('register')}
-          className={cls('px-2 py-1 bg-black-brushed hover:opacity-100', { 'opacity-70': type !== 'register' })}
+          className={cls('px-2 py-1 bg-brown-brushed hover:opacity-100', { 'opacity-70': type !== 'register' })}
         >
           Register
         </button>
@@ -39,7 +39,7 @@ function SigninForm({ fathom }: { fathom: Fathom }) {
   const [loading, setLoading] = React.useState(false)
   return (
     <form
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 max-w-sm w-full bg-brown-brushed mx-auto items-center text-white px-2 pt-2 pb-4 drop-shadow-xl rounded-md"
       onSubmit={async (e) => {
         try {
           e.preventDefault()
@@ -61,7 +61,7 @@ function SigninForm({ fathom }: { fathom: Fathom }) {
       }}
     >
       <h1 className="font-trajan text-3xl text-center">Sign In</h1>
-      <label className="flex flex-row gap-1 items-center justify-center">
+      <label className="flex flex-row gap-1 items-center justify-center w-full">
         <span className="w-1/2 px-2">Username</span>
         <input
           className="text-black px-2 py-1 rounded-md"
@@ -71,7 +71,7 @@ function SigninForm({ fathom }: { fathom: Fathom }) {
           required
         />
       </label>
-      <label className="flex flex-row gap-1 items-center justify-center">
+      <label className="flex flex-row gap-1 items-center justify-center w-full">
         <span className="w-1/2 px-2">Password</span>
         <input
           className="text-black px-2 py-1 rounded-md"
@@ -79,17 +79,20 @@ function SigninForm({ fathom }: { fathom: Fathom }) {
           type="password"
           placeholder="Your password"
           required
+          minLength={8}
         />
       </label>
       <button
         disabled={loading}
         type="submit"
-        className="flex flex-row justify-center items-center bg-slate-600 rounded-md px-2 py-1 font-trajan mt-2"
+        className="flex flex-row justify-center items-center bg-slate-600 rounded-md px-2 py-1 font-trajan mt-2 w-full"
       >
         {loading ? <FaSpinner className="animate-spin" /> : 'Sign In'}
       </button>
       {error ? (
-        <div className="text-red-600 text-center text-sm font-trajan pb-2">There was an error, please try again.</div>
+        <div className="text-red-600 text-center text-sm font-trajan pb-2 w-full">
+          There was an error, please try again.
+        </div>
       ) : null}
     </form>
   )
@@ -100,7 +103,7 @@ function RegisterForm({ fathom }: { fathom: Fathom }) {
   const [loading, setLoading] = React.useState(false)
   return (
     <form
-      className="flex flex-col gap-2 max-w-xs"
+      className="flex flex-col gap-2 max-w-sm w-full bg-brown-brushed mx-auto items-center text-white px-2 pt-2 pb-4 drop-shadow-xl rounded-md"
       onSubmit={async (e) => {
         try {
           e.preventDefault()
@@ -143,7 +146,7 @@ function RegisterForm({ fathom }: { fathom: Fathom }) {
       }}
     >
       <h1 className="font-trajan text-3xl text-center">Register</h1>
-      <label className="flex flex-row gap-1 items-center justify-center">
+      <label className="flex flex-row gap-1 items-center justify-center w-full">
         <span className="w-1/2 px-2">Username</span>
         <input
           className="text-black px-2 py-1 rounded-md"
@@ -154,14 +157,14 @@ function RegisterForm({ fathom }: { fathom: Fathom }) {
           minLength={3}
         />
       </label>
-      <label className="flex flex-row gap-1 items-center justify-center">
+      <label className="flex flex-row gap-1 items-center justify-center w-full">
         <span className="w-1/2 px-2">Lodestone URL</span>
         <input className="text-black px-2 py-1 rounded-md" name="lodestoneUrl" type="text" placeholder="https://" />
       </label>
-      <span className="flex flex-row gap-1 justify-center items-center text-sm text-opacity-85 text-white text-center max-w-xs -mt-1.5 mb-1">
+      <span className="flex flex-row gap-1 justify-center items-center text-sm text-opacity-85 text-white text-center -mt-1.5 mb-1 w-full">
         <FaQuestionCircle /> This is optional, connects character image etc
       </span>
-      <label className="flex flex-row gap-1 items-center justify-center">
+      <label className="flex flex-row gap-1 items-center justify-center w-full">
         <span className="w-1/2 px-2">Password</span>
         <input
           className="text-black px-2 py-1 rounded-md"
@@ -172,16 +175,16 @@ function RegisterForm({ fathom }: { fathom: Fathom }) {
           minLength={8}
         />
       </label>
-      <span className="flex flex-row gap-1 justify-center items-center text-sm text-opacity-85 text-white text-center max-w-xs -mt-1 mb-1">
+      <span className="flex flex-row gap-1 justify-center items-center text-sm text-opacity-85 text-white text-center -mt-1 mb-1 w-full">
         <FaInfoCircle /> Minimum length 8 characters
       </span>
-      <label className="flex flex-row gap-1 items-center justify-center">
-        <span className="w-1/2 px-2">Repeat Password</span>
+      <label className="flex flex-row gap-1 items-center justify-center w-full">
+        <span className="w-1/2 px-2">Confirm Password</span>
         <input
           className="text-black px-2 py-1 rounded-md"
           name="confirmPassword"
           type="password"
-          placeholder="Repeat password"
+          placeholder="Confirm password"
           required
           minLength={8}
         />
@@ -189,12 +192,12 @@ function RegisterForm({ fathom }: { fathom: Fathom }) {
       <button
         disabled={loading}
         type="submit"
-        className="flex flex-row justify-center items-center bg-slate-600 rounded-md px-2 py-1 font-trajan mt-2"
+        className="flex flex-row justify-center items-center bg-slate-600 rounded-md px-2 py-1 font-trajan mt-2 w-full"
       >
         {loading ? <FaSpinner className="animate-spin" /> : 'Register'}
       </button>
       {error ? (
-        <div className="text-red-600 text-center text-sm font-trajan pb-2">
+        <div className="text-red-600 text-center text-sm font-trajan pb-2 w-full">
           {typeof error === 'string' ? error : 'There was an error, please try again.'}
         </div>
       ) : null}
