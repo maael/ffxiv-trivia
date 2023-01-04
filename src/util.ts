@@ -90,3 +90,5 @@ export function formatDate(d: string) {
     year: '2-digit',
   })}`
 }
+
+export const ADMINS = ['Mael', 'Sylissa']

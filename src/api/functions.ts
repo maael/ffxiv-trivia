@@ -267,7 +267,13 @@ const handlers: ApiHandlers = {
   question: {
     post: {
       many: async ({ body }) => {
-        return ChallengeOption.create(body)
+        return ChallengeOption.create({
+          ...body,
+          question: body.question?.trim(),
+          difficulty: body.difficulty?.toLowerCase().trim(),
+          spoilers: body?.spoilers.map((s) => s.toLowerCase().trim()),
+          options: body.options?.map((o) => ({ ...o, option: o.option?.trim() })),
+        })
       },
     },
   },

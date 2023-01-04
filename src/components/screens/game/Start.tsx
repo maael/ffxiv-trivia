@@ -2,7 +2,6 @@ import * as React from 'react'
 import { FaExclamationTriangle, FaInfinity, FaInfoCircle, FaSpinner } from 'react-icons/fa'
 import cls from 'classnames'
 import SliderOuter from '~/components/primitives/Slider'
-import PrizeList from '~/components/PrizeList'
 import { CHALLENGE } from '~/types'
 import { convertMsToMinutesSeconds } from '~/util'
 
@@ -32,11 +31,6 @@ export default function StartScreen({
       <h1 className="font-trajan text-4xl text-center">
         {name || (gameType === CHALLENGE.custom ? 'Custom Game' : 'Quick Game')}
       </h1>
-      {gameType === CHALLENGE.custom ? null : gameType === CHALLENGE.random ? (
-        <p>No prizes for quick games, just fun!</p>
-      ) : (
-        <PrizeList prizes={prizes} />
-      )}
       {name ? (
         <p className="flex flex-col gap-3 justify-center items-center max-w-xs text-center text-yellow-500 text-lg">
           <FaExclamationTriangle className="text-4xl" /> This is a {gameType === CHALLENGE.custom ? 'custom' : 'ranked'}{' '}

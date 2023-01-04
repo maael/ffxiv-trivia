@@ -179,8 +179,8 @@ export default function GameScreen({
           </div>
         ) : null}
       </div>
-      <div className="flex flex-col gap-6 w-full h-full justify-center items-center text-white text-5xl sm:text-6xl">
-        <h2 className={cls({ hidden: !questionVisible })}>{lastItem?.question}</h2>
+      <div className="flex flex-col gap-6 w-full h-full justify-start mt-2 sm:mt-0 sm:justify-center items-center text-white text-5xl sm:text-6xl">
+        <h2 className={cls('text-center', { hidden: !questionVisible })}>{lastItem?.question}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full px-2 sm:px-10 text-4xl">
           {lastItem?.options.map((o) => (
             <button

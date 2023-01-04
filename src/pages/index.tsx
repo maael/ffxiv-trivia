@@ -4,7 +4,6 @@ import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query'
 import { FaArrowRight, FaBeer, FaCogs, FaGithub, FaLink, FaReddit } from 'react-icons/fa'
 import dynamic from 'next/dynamic'
 import { CHALLENGE } from '~/types'
-import PrizeList from '~/components/PrizeList'
 import GamesBlock from '~/components/primitives/GamesBlock'
 
 const Countdown = dynamic(() => import('../components/primitives/RankedResetTimer'), {
@@ -121,7 +120,6 @@ function RankedGameBlock({
   return challenge && !challenge.error ? (
     <div className="flex flex-col gap-1 items-center">
       <h3 className="font-trajan text-2xl -mb-0.5">{type}</h3>
-      <PrizeList prizes={challenge?.prizes} />
       <Link href={`/game/${type}`}>
         <a className="text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-1 items-center justify-center">
           {challenge?.name.replace(`${new Date().getFullYear()}`, '').trim()} <FaArrowRight />

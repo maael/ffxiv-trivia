@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaUser, FaSignOutAlt, FaArrowRight } from 'react-icons/fa'
+import { FaUser, FaSignOutAlt, FaArrowRight, FaPencilAlt } from 'react-icons/fa'
 import { useSession, signOut } from 'next-auth/react'
 import logoImg from '../../../public/logo.png'
-import { avatar, getUserStyles } from '~/util'
+import { ADMINS, avatar, getUserStyles } from '~/util'
 import cls from 'classnames'
 
 export default function Header() {
@@ -42,6 +42,13 @@ export default function Header() {
             </div>
           </Link>
         ) : null}
+        {ADMINS.includes(`${session?.user?.name}`) ? (
+          <Link href={`/questions`}>
+            <div className="cursor-link font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
+              <FaPencilAlt /> Edit
+            </div>
+          </Link>
+        ) : null}
         {session ? (
           <button
             onClick={async () => {
@@ -57,7 +64,7 @@ export default function Header() {
           <Link href="/auth">
             <div className="cursor-link font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
               <FaUser />
-              Sign In | Register
+              <span className="hidden sm:block">Sign In | Register</span>
             </div>
           </Link>
         )}
