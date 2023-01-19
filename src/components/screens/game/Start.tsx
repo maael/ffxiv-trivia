@@ -132,7 +132,7 @@ export default function StartScreen({
             <>
               <input
                 disabled
-                value={`https://gw2-geoguesser.mael.tech/game/custom/${createdGameId}`}
+                value={`https://ffxiv-trivia.mael.tech/game/custom/${createdGameId}`}
                 className="px-3 py-1 rounded-md shadow-md text-2xl text-black w-full text-ellipsis"
               />
               <p className="flex flex-row gap-3 justify-center items-center max-w-xs text-center text-blue-500 mx-auto -mt-1">

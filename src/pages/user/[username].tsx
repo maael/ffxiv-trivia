@@ -141,9 +141,9 @@ export async function getStaticProps({ params }) {
 
   const rootUrl =
     process.env.VERCEL_ENV === 'production'
-      ? 'https://gw2-geoguesser.mael.tech'
+      ? 'https://ffxiv-trivia.mael.tech'
       : process.env.VERCEL_ENV === 'preview'
-      ? 'https://gw2-geoguesser.mael.tech'
+      ? 'https://ffxiv-trivia.mael.tech'
       : 'http://localhost:3002'
 
   console.info('[revalidate]', { username: params.username, rootUrl })
