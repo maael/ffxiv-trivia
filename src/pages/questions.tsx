@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import * as React from 'react'
-import { FaBroom, FaEye, FaEyeSlash, FaPencilAlt, FaPlusSquare, FaSave, FaSpinner } from 'react-icons/fa'
+import { FaBroom, FaEye, FaEyeSlash, FaPencilAlt, FaPlusSquare, FaSave, FaSpinner, FaTimes } from 'react-icons/fa'
 import cls from 'classnames'
-import { ADMINS } from '~/util'
+import { ADMINS, wait } from '~/util'
 
 function getSelectValues(select: HTMLSelectElement) {
   const result: any = []
@@ -36,16 +36,22 @@ function AuthenticatedQuestions() {
     queryFn: () => fetch('/api/internal/challenge').then((r) => r.json()),
   })
   const [isSaving, setIsSaving] = React.useState(false)
+  function reset() {
+    const form = document.getElementById('questionform') as HTMLFormElement
+    form?.reset()
+    setOptionCount(0)
+    ;(form.elements.namedItem('question-id') as HTMLInputElement).value = ''
+  }
   return (
     <div className="flex flex-col justify-center items-center mt-5 max-w-2xl w-full mx-auto gap-2">
       <h1 className="text-4xl text-center">Questions</h1>
       <form
         className="bg-brown-brushed w-full mx-2 justify-center items-center rounded-md drop-shadow-lg px-4 py-2 gap-2 flex flex-col font-sans"
+        id="questionform"
         onSubmit={async (e) => {
           e.preventDefault()
           if ((e.nativeEvent as any).submitter.name === 'resetBtn') {
-            e.currentTarget?.reset()
-            setOptionCount(0)
+            reset()
             return
           }
           try {
@@ -60,21 +66,21 @@ function AuthenticatedQuestions() {
               })
             }
             const form = {
+              id: (e.currentTarget.elements.namedItem('question-id') as any).value,
               question: (e.currentTarget.elements.namedItem('question') as any).value,
               difficulty: (e.currentTarget.elements.namedItem('difficulty') as any).value,
               spoilers: getSelectValues(e.currentTarget.elements.namedItem('spoilers') as any),
               options,
             }
             console.info({ form })
-            await fetch('/api/internal/question', {
-              method: 'POST',
+            await fetch(`/api/internal/question${form.id ? `/${form.id}` : ''}`, {
+              method: form.id ? 'PUT' : 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify(form),
             })
-            e.currentTarget?.reset()
-            setOptionCount(0)
+            reset()
             await refetch()
           } finally {
             setIsSaving(false)
@@ -83,6 +89,7 @@ function AuthenticatedQuestions() {
       >
         <h2 className="text-2xl text-center">New Question</h2>
         <textarea className="w-full p-2 text-black" name="question" placeholder="Question..."></textarea>
+        <input type="hidden" name="question-id" />
         <input type="hidden" name="option-count" value={optionCount} />
         {Array.from({ length: optionCount }).map((_, i) => (
           <div className="w-full flex flex-row gap-2 justify-center items-center" key={i}>
@@ -147,7 +154,22 @@ function AuthenticatedQuestions() {
       </h1>
       <div className="mt-2 flex flex-col gap-5 w-full text-xl mb-5">
         {data?.map((q) => (
-          <Question key={q._id} {...q} />
+          <Question
+            key={q._id}
+            {...q}
+            setOptionCount={setOptionCount}
+            onDelete={async () => {
+              const answer = confirm(`Delete ${q._id}?`)
+              if (!answer) return
+              await fetch(`/api/internal/question/${q._id}`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              })
+              await refetch()
+            }}
+          />
         ))}
       </div>
     </div>
@@ -250,9 +272,28 @@ function Question(q: any) {
           </button>
           <button
             className={cls('bg-gray-800 text-xs px-2 py-2 rounded-md shadow-md hover:scale-110 transition-all')}
-            onClick={() => alert('Does nothing for now')}
+            onClick={async () => {
+              q.setOptionCount(q.options.length)
+              await wait(100)
+              const form = document.getElementById('questionform') as HTMLFormElement
+              ;(form.elements.namedItem('question-id') as HTMLInputElement).value = q._id
+              ;(form.elements.namedItem('question') as HTMLInputElement).value = q.question
+              ;(form.elements.namedItem('difficulty') as HTMLInputElement).value = q.difficulty
+              q.options.forEach((o, i) => {
+                // eslint-disable-next-line @typescript-eslint/no-extra-semi
+                ;(form.elements.namedItem(`option-${i}-option`) as HTMLInputElement).value = o.option
+                ;(form.elements.namedItem(`option-${i}-type`) as HTMLInputElement).value = o.type
+                ;(form.elements.namedItem(`option-${i}-correct`) as HTMLInputElement).checked = o.correct
+              })
+            }}
           >
             <FaPencilAlt />
+          </button>
+          <button
+            className={cls('bg-red-800 text-xs px-2 py-2 rounded-md shadow-md hover:scale-110 transition-all')}
+            onClick={() => q.onDelete(q._id)}
+          >
+            <FaTimes />
           </button>
         </div>
       </div>

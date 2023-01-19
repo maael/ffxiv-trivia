@@ -276,6 +276,22 @@ const handlers: ApiHandlers = {
         })
       },
     },
+    put: {
+      one: async ({ id, body }) => {
+        return ChallengeOption.findByIdAndUpdate(id, {
+          ...body,
+          question: body.question?.trim(),
+          difficulty: body.difficulty?.toLowerCase().trim(),
+          // spoilers: body?.spoilers.map((s) => s.toLowerCase().trim()),
+          options: body.options?.map((o) => ({ ...o, option: o.option?.trim() })),
+        })
+      },
+    },
+    delete: {
+      one: async ({ id }) => {
+        return ChallengeOption.deleteOne({ _id: id })
+      },
+    },
   },
 }
 

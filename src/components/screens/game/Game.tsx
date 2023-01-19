@@ -122,6 +122,7 @@ export default function GameScreen({
     setQuestionVisible(false)
   }, [])
   const hasGuessed = typeof lastItem?.score === 'number'
+  const [guesses, setGuesses] = React.useState<{ _id: string; option: string }[]>([])
   return (
     <div
       suppressHydrationWarning
@@ -184,30 +185,55 @@ export default function GameScreen({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full px-2 sm:px-10 text-4xl">
           {lastItem?.options.map((o) => (
             <button
-              key={o.option}
-              className={cls('bg-brown-brushed px-10 py-2 rounded-full opacity-90 hover:opacity-100', {
-                'bg-green-600': hasGuessed && o.correct,
-                'bg-red-600': hasGuessed && !o.correct,
-              })}
+              key={o._id}
+              disabled={hasGuessed}
+              className={cls(
+                'bg-brown-brushed px-10 py-2 rounded-full opacity-90 hover:opacity-100 border-2 border-transparent',
+                {
+                  'bg-green-600': hasGuessed && o.correct,
+                  'bg-red-600': hasGuessed && !o.correct,
+                  'border-white opacity-100': guesses.some((g) => g._id === o._id),
+                }
+              )}
               onClick={() => {
-                const score = o.correct ? 1 : 0
-                setGame((g) => {
-                  const last = { ...g[g.length - 1], score }
-                  const updatedGame = g.slice(0, -1).concat(last)
-                  const canFinish = isFinished(updatedGame)
-                  console.info('[guess]', { canFinish, updatedGame })
-                  if (canFinish) {
-                    stopTimer()
-                    fathom.trackGoal(EVENTS.FinishGame, 0)
-                    if (session) void saveGame(gameType, gameId, updatedGame, timer.differenceMs)
-                  }
-                  return updatedGame
-                })
+                const maxGuesses = lastItem?.options.filter((o) => o.correct).length
+                setGuesses((g) =>
+                  g.some((i) => i._id === o._id) ? g.filter((i) => i._id !== o._id) : g.concat(o).slice(-maxGuesses)
+                )
               }}
             >
               {o.option}
             </button>
           ))}
+        </div>
+        <div>
+          <button
+            className={cls('bg-brown-brushed px-10 py-2 rounded-full opacity-90 hover:opacity-100', {
+              invisible: hasGuessed,
+            })}
+            disabled={hasGuessed}
+            onClick={() => {
+              const score = lastItem.options
+                .filter((o) => o.correct)
+                .every((o) => guesses.some((g) => g.option === o.option))
+                ? 1
+                : 0
+              setGame((g) => {
+                const last = { ...g[g.length - 1], score }
+                const updatedGame = g.slice(0, -1).concat(last)
+                const canFinish = isFinished(updatedGame)
+                console.info('[guess]', { canFinish, updatedGame })
+                if (canFinish) {
+                  stopTimer()
+                  fathom.trackGoal(EVENTS.FinishGame, 0)
+                  if (session) void saveGame(gameType, gameId, updatedGame, timer.differenceMs)
+                }
+                return updatedGame
+              })
+            }}
+          >
+            Guess!
+          </button>
         </div>
       </div>
       {!showFinished && lastItem?.score !== null && lastItem?.score !== undefined && game.length <= maxRounds ? (
@@ -227,15 +253,17 @@ export default function GameScreen({
       ) : null}
       {showFinished ? (
         <div className="bg-opacity-50 bg-gray-800 absolute inset-0 flex flex-col justify-center items-center">
-          <div className="flex flex-col text-white bg-brown-brushed drop-shadow-xl px-2 md:px-10 py-5 justify-center text-xl md:w-1/3 m-3">
+          <div className="flex flex-col text-white bg-brown-brushed drop-shadow-xl px-2 md:px-10 py-5 justify-center text-xl md:w-1/3 m-3 rounded-lg">
             <h2 className="font-trajan text-5xl text-center">Finished!</h2>
             <h3 className="font-trajan text-3xl text-center">Time: {timer.formatted}</h3>
             <div className="flex flex-col gap-1 mt-3 mb-1">
               {game.map((g, i) => (
                 <div key={g._id} className="flex flex-row items-center gap-2 bg-black-brushed px-3 md:px-10 py-2">
                   <div className="pr-2 md:pr-5">{i + 1}.</div>
-                  <div className="overflow-hidden text-ellipsis flex-1 whitespace-nowrap font-trajan">{g.question}</div>
-                  <div className="text-right flex-0">Correct: {g.score ? 'Y' : 'N'}</div>
+                  <div className="flex-1 font-trajan">{g.question}</div>
+                  <div className="text-right flex-0">
+                    <img src={g.score ? '/ui/tick.png' : '/ui/x.png'} className="w-8 h-8" />
+                  </div>
                 </div>
               ))}
             </div>

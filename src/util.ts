@@ -46,6 +46,8 @@ export function convertMsToMinutesSeconds(milliseconds) {
   return seconds === 60 ? `${padTo2Digits(minutes + 1)}:00` : `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`
 }
 
+export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 export function cleanUsername(username?: string | null) {
   return `${username || ''}`?.split('@')[0]?.trim()
 }

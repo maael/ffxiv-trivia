@@ -46,7 +46,7 @@ export interface Challenge {
 export interface ChallengeOption {
   _id: string
   question: string
-  options: { correct: string; option: string }[]
+  options: { _id: string; correct: string; option: string }[]
   difficulty: string
   spoilers: string[]
 }
