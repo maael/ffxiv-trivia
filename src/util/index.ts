@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query'
-import { CHALLENGE } from './types'
-import { isStreamer } from './components/primitives/UserLinks'
+import { CHALLENGE } from '../types'
+import { isStreamer } from '../components/primitives/UserLinks'
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, refetchInterval: false } },
