@@ -1,6 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
 import { CHALLENGE } from '../types'
 import { isStreamer } from '../components/primitives/UserLinks'
+export { getRandomArrayItem, getRandomImage } from './random'
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false, refetchInterval: false } },
@@ -23,10 +24,6 @@ export const ChallengeOptionsMap: Partial<Record<CHALLENGE, { rounds: number }>>
 
 export function avatar(name: string | undefined | null) {
   return name || '/'
-}
-
-export function getRandomArrayItem<T>(items: T[]) {
-  return items[Math.floor(Math.random() * items.length)]
 }
 
 export const medalColor = {

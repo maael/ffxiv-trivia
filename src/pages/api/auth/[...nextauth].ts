@@ -2,6 +2,7 @@ import NextAuth, { User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import UserModel, { User as TUser } from '~/db/models/user'
 import { WithDoc } from '~/types'
+import { getRandomImage } from '~/util'
 import { getLodestoneData } from '~/util/lodestone'
 
 export const authOptions: Parameters<typeof NextAuth>[2] = {
@@ -78,7 +79,7 @@ async function registerFlow(
       username: credentials.username,
       password: credentials.password,
       lodestoneUrl: credentials.lodestoneUrl,
-      image: lodestoneData.image,
+      image: lodestoneData.image || getRandomImage(),
       lodestoneData,
     })
     newUser.save((err) => {

@@ -13,7 +13,8 @@
     "initial-options": "ts-node -r dotenv-extended/config src/scripts/initial-options.ts",
     "create-challenge": "ts-node -r dotenv-extended/config src/scripts/create-challenge.ts",
     "migrate-options": "ts-node -r dotenv-extended/config src/scripts/migrate-options.ts",
-    "danger:reset": "ts-node -r dotenv-extended/config src/scripts/reset.ts"
+    "danger:reset": "ts-node -r dotenv-extended/config src/scripts/reset.ts",
+    "danger:refresh-lodestone": "ts-node -r dotenv-extended/config src/scripts/refresh-lodestone.ts"
   },
   "husky": {
     "hooks": {

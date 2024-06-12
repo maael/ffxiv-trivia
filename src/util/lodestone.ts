@@ -1,5 +1,4 @@
 import { load } from 'cheerio'
-import fetch from 'node-fetch'
 
 export async function getLodestoneData(url?: string): Promise<any> {
   if (!url) return {}
