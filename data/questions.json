@@ -1,0 +1,702 @@
+[
+  {
+    "question": "What is the name of the main city in the Gridania region?",
+    "options": [
+      { "option": "Ul'dah", "correct": false },
+      { "option": "Limsa Lominsa", "correct": false },
+      { "option": "Gridania", "correct": true },
+      { "option": "Ishgard", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "Which class can become the Dragoon job?",
+    "options": [
+      { "option": "Lancer", "correct": true },
+      { "option": "Archer", "correct": false },
+      { "option": "Thaumaturge", "correct": false },
+      { "option": "Marauder", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "What is the name of the first expansion for Final Fantasy 14?",
+    "options": [
+      { "option": "Shadowbringers", "correct": false },
+      { "option": "Heavensward", "correct": true },
+      { "option": "Stormblood", "correct": false },
+      { "option": "Endwalker", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "Which beast tribe is associated with the crafting profession in Stormblood?",
+    "options": [
+      { "option": "Kojin", "correct": false },
+      { "option": "Ananta", "correct": false },
+      { "option": "Namazu", "correct": true },
+      { "option": "Pixie", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "What is the name of the raid series introduced in the Shadowbringers expansion?",
+    "options": [
+      { "option": "Alexander", "correct": false },
+      { "option": "Eden", "correct": true },
+      { "option": "Omega", "correct": false },
+      { "option": "The Coils of Bahamut", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "Who is the main antagonist in the Heavensward expansion?",
+    "options": [
+      { "option": "Zenos yae Galvus", "correct": false },
+      { "option": "Lahabrea", "correct": false },
+      { "option": "Nidhogg", "correct": true },
+      { "option": "Elidibus", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "Which job was introduced in the Shadowbringers expansion?",
+    "options": [
+      { "option": "Samurai", "correct": false },
+      { "option": "Dancer", "correct": true },
+      { "option": "Red Mage", "correct": false },
+      { "option": "Gunbreaker", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the primal summoned by the Sahagin?",
+    "options": [
+      { "option": "Leviathan", "correct": true },
+      { "option": "Ifrit", "correct": false },
+      { "option": "Garuda", "correct": false },
+      { "option": "Titan", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which city-state is home to the Thaumaturges' Guild?",
+    "options": [
+      { "option": "Limsa Lominsa", "correct": false },
+      { "option": "Ul'dah", "correct": true },
+      { "option": "Gridania", "correct": false },
+      { "option": "Ishgard", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the world in which players start the game?",
+    "options": [
+      { "option": "Hydaelyn", "correct": true },
+      { "option": "The First", "correct": false },
+      { "option": "The Void", "correct": false },
+      { "option": "Eorzea", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "What is the name of the ancient civilization that created the Allagan Empire?",
+    "options": [
+      { "option": "Garlemald", "correct": false },
+      { "option": "Sharlayan", "correct": false },
+      { "option": "Amaurot", "correct": false },
+      { "option": "Allag", "correct": true }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "In which city can you find the Weaver's Guild?",
+    "options": [
+      { "option": "Limsa Lominsa", "correct": false },
+      { "option": "Ul'dah", "correct": true },
+      { "option": "Gridania", "correct": false },
+      { "option": "Ishgard", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "Which race is native to the Azim Steppe?",
+    "options": [
+      { "option": "Lalafell", "correct": false },
+      { "option": "Viera", "correct": false },
+      { "option": "Hrothgar", "correct": false },
+      { "option": "Au Ra", "correct": true }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "Which character is known as the 'Azure Dragoon'?",
+    "options": [
+      { "option": "Estinien", "correct": true },
+      { "option": "Haurchefant", "correct": false },
+      { "option": "Aymeric", "correct": false },
+      { "option": "Alphinaud", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "What is the name of the final trial in the Heavensward expansion?",
+    "options": [
+      { "option": "The Aetherochemical Research Facility", "correct": false },
+      { "option": "The Antitower", "correct": false },
+      { "option": "The Vault", "correct": false },
+      { "option": "The Singularity Reactor", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which trial features the primal Susano?",
+    "options": [
+      { "option": "The Pool of Tribute", "correct": true },
+      { "option": "The Bowl of Embers", "correct": false },
+      { "option": "The Wreath of Snakes", "correct": false },
+      { "option": "The Jade Stoa", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job can use the skill 'Holy Circle'?",
+    "options": [
+      { "option": "Paladin", "correct": true },
+      { "option": "White Mage", "correct": false },
+      { "option": "Dark Knight", "correct": false },
+      { "option": "Astrologian", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the summer festival held annually in Limsa Lominsa?",
+    "options": [
+      { "option": "The Rising", "correct": false },
+      { "option": "Hatching-tide", "correct": false },
+      { "option": "The Moonfire Faire", "correct": true },
+      { "option": "All Saints' Wake", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "What is the name of the relic weapon questline introduced in the Shadowbringers expansion?",
+    "options": [
+      { "option": "Eureka", "correct": false },
+      { "option": "Zodiac Weapons", "correct": false },
+      { "option": "Anima Weapons", "correct": false },
+      { "option": "Resistance Weapons", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Who is the original leader of the Scions of the Seventh Dawn?",
+    "options": [
+      { "option": "Thancred Waters", "correct": false },
+      { "option": "Alphinaud Leveilleur", "correct": false },
+      { "option": "Urianger Augurelt", "correct": false },
+      { "option": "Minfilia Warde", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which location serves as the setting for the final battle in the Stormblood expansion?",
+    "options": [
+      { "option": "The Royal Menagerie", "correct": true },
+      { "option": "The Burn", "correct": false },
+      { "option": "The Fractal Continuum", "correct": false },
+      { "option": "The Gimlyt Dark", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Crystal Exarch's true identity?",
+    "options": [
+      { "option": "G'raha Tia", "correct": true },
+      { "option": "Urianger Augurelt", "correct": false },
+      { "option": "Estinien Wyrmblood", "correct": false },
+      { "option": "Ardbert", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which NPC is known for providing the 'Hildibrand' questline?",
+    "options": [
+      { "option": "Godbert Manderville", "correct": false },
+      { "option": "Nashu Mhakaracca", "correct": true },
+      { "option": "Ellie", "correct": false },
+      { "option": "Julyan Manderville", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the primal summoned by the Moogles in the Thornmarch trial?",
+    "options": [
+      { "option": "Great King Moggle Mog XII", "correct": false },
+      { "option": "Good King Moggle Mog XII", "correct": true },
+      { "option": "Moggen", "correct": false },
+      { "option": "Kupomog", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which character is known as the 'Warrior of Light' in the First?",
+    "options": [
+      { "option": "Thancred", "correct": false },
+      { "option": "Minfilia", "correct": false },
+      { "option": "Ardbert", "correct": true },
+      { "option": "Y'shtola", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "What is the name of the alliance raid series introduced in the Shadowbringers expansion?",
+    "options": [
+      { "option": "The Tower at Paradigm's Breach", "correct": false },
+      { "option": "The Orbonne Monastery", "correct": false },
+      { "option": "The Copied Factory", "correct": true },
+      { "option": "Dun Scaith", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the mount awarded for completing the 'The Minstrel's Ballad: Tsukuyomi's Pain' trial?",
+    "options": [
+      { "option": "Kamuy of the Nine Tails", "correct": false },
+      { "option": "Lunar Kamuy", "correct": true },
+      { "option": "Reveling Kamuy", "correct": false },
+      { "option": "Legendary Kamuy", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which Final Fantasy series composer created the song 'Wayward Daughter' for Final Fantasy 14?",
+    "options": [
+      { "option": "Nobuo Uematsu", "correct": false },
+      { "option": "Masayoshi Soken", "correct": true },
+      { "option": "Hitoshi Sakimoto", "correct": false },
+      { "option": "Yoko Shimomura", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the true name of the Ascian known as Elidibus?",
+    "options": [
+      { "option": "Hades", "correct": false },
+      { "option": "Hephaistos", "correct": false },
+      { "option": "Themis", "correct": true },
+      { "option": "Amon", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the ultimate weapon of the Allagan Empire?",
+    "options": [
+      { "option": "Omega", "correct": false },
+      { "option": "Ultima Weapon", "correct": true },
+      { "option": "Alexander", "correct": false },
+      { "option": "Eikon", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which zone is home to the dungeon 'Mt. Gulg'?",
+    "options": [
+      { "option": "Kholusia", "correct": true },
+      { "option": "Lakeland", "correct": false },
+      { "option": "Amh Araeng", "correct": false },
+      { "option": "The Rak'tika Greatwood", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Who is the first boss in the 'The Twinning' dungeon?",
+    "options": [
+      { "option": "Alpha Zaghnal", "correct": true },
+      { "option": "Livia sas Junius", "correct": false },
+      { "option": "Magitek Scorpion", "correct": false },
+      { "option": "Anima", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Viera homeland?",
+    "options": [
+      { "option": "The Skatay Range", "correct": true },
+      { "option": "Dalmasca", "correct": false },
+      { "option": "Meracydia", "correct": false },
+      { "option": "Golmore Jungle", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which character is a member of the 'Convocation of Fourteen' known as 'Emet-Selch'?",
+    "options": [
+      { "option": "Solus zos Galvus", "correct": true },
+      { "option": "Varis zos Galvus", "correct": false },
+      { "option": "Zenos Galvus", "correct": false },
+      { "option": "Hythlodaeus", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the maximum level cap introduced in the Endwalker expansion?",
+    "options": [
+      { "option": "70", "correct": false },
+      { "option": "80", "correct": false },
+      { "option": "90", "correct": true },
+      { "option": "100", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "Which primal do you fight in the trial 'The Navel'?",
+    "options": [
+      { "option": "Leviathan", "correct": false },
+      { "option": "Garuda", "correct": false },
+      { "option": "Titan", "correct": true },
+      { "option": "Ifrit", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "What is the name of the final boss in the 'Alexander: The Soul of the Creator' raid?",
+    "options": [
+      { "option": "Alexander Prime", "correct": true },
+      { "option": "Perfect Alexander", "correct": false },
+      { "option": "Alexander Gordias", "correct": false },
+      { "option": "Cruise Chaser", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job uses the skill 'Deathflare'?",
+    "options": [
+      { "option": "Summoner", "correct": true },
+      { "option": "Black Mage", "correct": false },
+      { "option": "Red Mage", "correct": false },
+      { "option": "Scholar", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job has the ability 'Inner Release'?",
+    "options": [
+      { "option": "Warrior", "correct": true },
+      { "option": "Paladin", "correct": false },
+      { "option": "Dark Knight", "correct": false },
+      { "option": "Gunbreaker", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Dragoon's level 70 ability that increases their Dragon Gauge?",
+    "options": [
+      { "option": "Spineshatter Dive", "correct": false },
+      { "option": "Dragonfire Dive", "correct": false },
+      { "option": "Geirskogul", "correct": false },
+      { "option": "Mirage Dive", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which skill is unique to the White Mage job?",
+    "options": [
+      { "option": "Benediction", "correct": true },
+      { "option": "Essential Dignity", "correct": false },
+      { "option": "Tetragrammaton", "correct": false },
+      { "option": "Eukrasia", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Monk's level 80 skill that allows them to change forms?",
+    "options": [
+      { "option": "Perfect Balance", "correct": false },
+      { "option": "Brotherhood", "correct": false },
+      { "option": "Form Shift", "correct": true },
+      { "option": "Riddle of Earth", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job uses the skill 'Wildfire'?",
+    "options": [
+      { "option": "Machinist", "correct": true },
+      { "option": "Bard", "correct": false },
+      { "option": "Dancer", "correct": false },
+      { "option": "Ninja", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job's skill set includes 'Dark Mind'?",
+    "options": [
+      { "option": "Dark Knight", "correct": true },
+      { "option": "Reaper", "correct": false },
+      { "option": "Warrior", "correct": false },
+      { "option": "Samurai", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Samurai skill that consumes three Sen to perform a powerful attack?",
+    "options": [
+      { "option": "Midare Setsugekka", "correct": true },
+      { "option": "Higanbana", "correct": false },
+      { "option": "Tenka Goken", "correct": false },
+      { "option": "Hissatsu: Guren", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which skill allows a Red Mage to resurrect a party member?",
+    "options": [
+      { "option": "Vercure", "correct": false },
+      { "option": "Verraise", "correct": true },
+      { "option": "Embolden", "correct": false },
+      { "option": "Verholy", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Gunbreaker's ability that applies a magic damage reduction to the party?",
+    "options": [
+      { "option": "Aurora", "correct": false },
+      { "option": "Heart of Light", "correct": true },
+      { "option": "Camouflage", "correct": false },
+      { "option": "Superbolide", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job uses the skill 'Fleche'?",
+    "options": [
+      { "option": "Red Mage", "correct": true },
+      { "option": "Black Mage", "correct": false },
+      { "option": "Ninja", "correct": false },
+      { "option": "Samurai", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the Bard's skill that grants party-wide direct hit rate increase?",
+    "options": [
+      { "option": "Battle Voice", "correct": true },
+      { "option": "Foe Requiem", "correct": false },
+      { "option": "Troubadour", "correct": false },
+      { "option": "Nature's Minne", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which Scholar ability places a shield on a single target?",
+    "options": [
+      { "option": "Adloquium", "correct": true },
+      { "option": "Succor", "correct": false },
+      { "option": "Lustrate", "correct": false },
+      { "option": "Excogitation", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job uses the ability 'Sonic Break'?",
+    "options": [
+      { "option": "Gunbreaker", "correct": true },
+      { "option": "Warrior", "correct": false },
+      { "option": "Paladin", "correct": false },
+      { "option": "Dark Knight", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job uses the skill 'Doton'?",
+    "options": [
+      { "option": "Ninja", "correct": true },
+      { "option": "Summoner", "correct": false },
+      { "option": "Black Mage", "correct": false },
+      { "option": "Monk", "correct": false }
+    ],
+    "difficulty": "intermediate"
+  },
+  {
+    "question": "What is the name of the Black Mage's level 50 skill that deals AoE damage?",
+    "options": [
+      { "option": "Foul", "correct": false },
+      { "option": "Xenoglossy", "correct": false },
+      { "option": "Despair", "correct": false },
+      { "option": "Flare", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which Astrologian ability extends the duration of beneficial effects on a target?",
+    "options": [
+      { "option": "Time Dilation", "correct": true },
+      { "option": "Celestial Intersection", "correct": false },
+      { "option": "Earthly Star", "correct": false },
+      { "option": "Lightspeed", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job has the ability 'Living Dead'?",
+    "options": [
+      { "option": "Dark Knight", "correct": true },
+      { "option": "Warrior", "correct": false },
+      { "option": "Paladin", "correct": false },
+      { "option": "Gunbreaker", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which job uses the skill 'Triplecast'?",
+    "options": [
+      { "option": "Black Mage", "correct": true },
+      { "option": "Red Mage", "correct": false },
+      { "option": "Summoner", "correct": false },
+      { "option": "Blue Mage", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount is awarded for completing all of the Heavensward extreme primal fights?",
+    "options": [
+      { "option": "Firebird", "correct": true },
+      { "option": "Twintania", "correct": false },
+      { "option": "Whisper-go", "correct": false },
+      { "option": "White Lanner", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the mount that can be obtained from the Palace of the Dead?",
+    "options": [
+      { "option": "Night Pegasus", "correct": true },
+      { "option": "War Panther", "correct": false },
+      { "option": "Magitek Predator", "correct": false },
+      { "option": "Goten", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount is obtained from the 'Heaven-on-High' dungeon?",
+    "options": [
+      { "option": "Forgiven Reticence", "correct": false },
+      { "option": "Eldthurs", "correct": false },
+      { "option": "Disembodied Head", "correct": false },
+      { "option": "Juedi", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount is awarded for completing the achievement 'I Hope Mentor Will Notice Me VI'?",
+    "options": [
+      { "option": "Astrope", "correct": true },
+      { "option": "Magitek Sky Armor", "correct": false },
+      { "option": "Triceratops", "correct": false },
+      { "option": "Sabotender Emperador", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount can be obtained via Eureka?",
+    "options": [
+      { "option": "Eldthurs", "correct": false },
+      { "option": "Pegasus", "correct": false },
+      { "option": "Ixion", "correct": false },
+      { "option": "Eurekan Petrel", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the mount that can be obtained from the Gold Saucer for 1,000,000 MGP?",
+    "options": [
+      { "option": "Fenrir", "correct": true },
+      { "option": "Adamantoise", "correct": false },
+      { "option": "Korpokkur Kolossus", "correct": false },
+      { "option": "Sabotender Emperador", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount is obtained from the achievement 'Tank You, Warrior III'?",
+    "options": [
+      { "option": "Glory", "correct": false },
+      { "option": "Battle Bear", "correct": true },
+      { "option": "Battle Lion", "correct": false },
+      { "option": "Battle Panther", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount drops from 'The Minstrel's Ballad: Hades's Elegy' trial?",
+    "options": [
+      { "option": "Shadow Gwiber", "correct": true },
+      { "option": "Warlion", "correct": false },
+      { "option": "Forgiven Reticence", "correct": false },
+      { "option": "Fae Gwiber", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount can be obtained with 200,000 MGP?",
+    "options": [
+      { "option": "Adamantoise", "correct": true },
+      { "option": "Fenrir", "correct": false },
+      { "option": "Sabotender Emperador", "correct": false },
+      { "option": "Typhon", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "What is the name of the mount from from Eureka Anemos?",
+    "options": [
+      { "option": "Eldthurs", "correct": false },
+      { "option": "Eurekan Petrel", "correct": false },
+      { "option": "Eurekan Pyros", "correct": false },
+      { "option": "Tyrannosaur", "correct": true }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount is a reward for obtaining all of the Kamuy mounts from Stormblood extreme trials?",
+    "options": [
+      { "option": "Kamuy of the Nine Tails", "correct": true },
+      { "option": "Eldthurs", "correct": false },
+      { "option": "Skyslipper", "correct": false },
+      { "option": "Fae Gwiber", "correct": false }
+    ],
+    "difficulty": "beginner"
+  },
+  {
+    "question": "Which mount drops from the extreme trial 'The Wreath of Snakes'?",
+    "options": [
+      { "option": "Hallowed Kamuy", "correct": true },
+      { "option": "Lunar Kamuy", "correct": false },
+      { "option": "Reveling Kamuy", "correct": false },
+      { "option": "Sophic Lanner", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount is obtained from the 'Shadowbringers' expansion main story questline?",
+    "options": [
+      { "option": "Amaro", "correct": true },
+      { "option": "Skyslipper", "correct": false },
+      { "option": "Forgiven Reticence", "correct": false },
+      { "option": "Dhalmel", "correct": false }
+    ],
+    "difficulty": "expert"
+  },
+  {
+    "question": "Which mount can be obtained by trading in 99 Astral tokens?",
+    "options": [
+      { "option": "Lynx of Eternal Darkness", "correct": true },
+      { "option": "Dreadwyrm", "correct": false },
+      { "option": "Astrope", "correct": false },
+      { "option": "Hallowed Kamuy", "correct": false }
+    ],
+    "difficulty": "expert"
+  }
+]
