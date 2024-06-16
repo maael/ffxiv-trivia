@@ -252,7 +252,7 @@ export default function GameScreen({
         </button>
       ) : null}
       {showFinished ? (
-        <div className="bg-opacity-50 bg-gray-800 absolute inset-0 flex flex-col justify-center items-center">
+        <div className="bg-opacity-50 bg-gray-800 absolute inset-0 flex flex-col sm:justify-center sm:items-center">
           <div className="flex flex-col text-white bg-brown-brushed drop-shadow-xl px-2 md:px-10 py-5 justify-center text-xl md:w-1/3 m-3 rounded-lg">
             <h2 className="font-trajan text-5xl text-center">Finished!</h2>
             <h3 className="font-trajan text-3xl text-center">Time: {timer.formatted}</h3>
