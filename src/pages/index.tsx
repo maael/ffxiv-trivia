@@ -5,6 +5,7 @@ import { FaArrowRight, FaBeer, FaCogs, FaGithub, FaLink, FaReddit } from 'react-
 import dynamic from 'next/dynamic'
 import { CHALLENGE } from '~/types'
 import GamesBlock from '~/components/primitives/GamesBlock'
+import { useSession } from 'next-auth/react'
 
 const Countdown = dynamic(() => import('../components/primitives/RankedResetTimer'), {
   ssr: false,
@@ -25,6 +26,7 @@ export default function Index(_: any) {
     highMonthlyGames,
     recentRandomGames,
   } = data || {}
+  const { data: session } = useSession()
   return (
     <>
       <div className="flex flex-col justify-center items-center text-white">
@@ -32,30 +34,34 @@ export default function Index(_: any) {
           <div className="text-2xl sm:text-4xl text-center mt-3 sm:mt-7 font-trajan">
             Think you know Final Fantasy XIV?
           </div>
-          <div className="flex flex-col justify-center items-center gap-2 w-full px-2 my-1">
-            <Link href="/game/random">
-              <a className="-mt-2 text-2xl text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-2 justify-center items-center">
-                Quick Game <FaArrowRight />
-              </a>
-            </Link>
-            <p className="max-w-xs text-center -mt-1 text-sm opacity-75">
-              Play a quick game with some random questions!
-            </p>
-            <Link href="/game/custom">
-              <a className="mt-4 text-2xl text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-2 justify-center items-center">
-                Custom Game <FaCogs />
-              </a>
-            </Link>
-            <p className="max-w-xs text-center -mt-1 text-sm opacity-75">
-              Make a shareable game with fixed questions, perfect for friend groups or sharing with stream viewers!
-            </p>
-            <div className="font-trajan text-xl sm:text-3xl mt-2">Ranked Games</div>
-            <div className="text-center max-w-md">
-              <Link href="/auth">
-                <a className="underline">Sign up or Log in</a>
-              </Link>{' '}
-              to play fixed ranked games!
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-2 w-full px-2 my-1">
+            <div className="flex flex-col justify-center items-center gap-2 w-full px-2 h-full">
+              <Link href="/game/random">
+                <a className="text-2xl text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-2 justify-center items-center">
+                  Quick Game <FaArrowRight />
+                </a>
+              </Link>
+              <p className="text-center -mt-1 text-sm opacity-75">Play a quick game with some random questions!</p>
             </div>
+            <div className="flex flex-col justify-center items-center gap-2 w-full px-2 h-full">
+              <Link href="/game/custom">
+                <a className="text-2xl text-center bg-brown-brushed rounded-full drop-shadow-md hover:scale-110 transition-transform px-5 py-1 flex flex-row gap-2 justify-center items-center">
+                  Custom Game <FaCogs />
+                </a>
+              </Link>
+              <p className="text-center -mt-1 text-sm opacity-75">Perfect for friend groups or sharing with viewers!</p>
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-1 w-full px-2 my-1">
+            <h3 className="font-trajan text-xl sm:text-3xl -mb-2">Ranked Games</h3>
+            {session ? null : (
+              <div className="text-center max-w-md">
+                <Link href="/auth">
+                  <a className="underline">Sign up or Log in</a>
+                </Link>{' '}
+                to play fixed ranked games!
+              </div>
+            )}
             <div className="text-center max-w-md my-1">
               You can only attempt each ranked game once until a new one is released, so play carefully!
             </div>
@@ -66,6 +72,15 @@ export default function Index(_: any) {
               <RankedGameBlock type={CHALLENGE.daily} challenge={daily} />
               <RankedGameBlock type={CHALLENGE.weekly} challenge={weekly} />
               <RankedGameBlock type={CHALLENGE.monthly} challenge={monthly} />
+            </div>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-2 w-full">
+            <h3 className="font-trajan text-xl sm:text-3xl -mb-2">New Questions</h3>
+            <div className="flex flex-col md:flex-row justify-center items-center text-center gap-1">
+              <p>Got some great new questions?</p>
+              <a href="https://forms.gle/PMPE822XTNLua4s49" className="text-brown-brushed underline">
+                Submit them here!
+              </a>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 w-full">

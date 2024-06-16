@@ -86,7 +86,6 @@ export function formatDate(d: string) {
   } ${dateObj.toLocaleDateString(locale, {
     day: '2-digit',
     month: '2-digit',
-    year: '2-digit',
   })}`
 }
 

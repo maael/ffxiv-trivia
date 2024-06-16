@@ -8,6 +8,10 @@
   @apply text-white;
 }
 
+.text-brown-brushed {
+  color: #b99c67;
+}
+
 .border-gold {
   border-color: #b99c67;
 }

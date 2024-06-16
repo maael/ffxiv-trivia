@@ -11,7 +11,7 @@ export default function Header() {
   const userStyles = getUserStyles(session?.user?.name, (session?.user as any)?.style)
   return (
     <div>
-      <div className="max-w-6xl w-full mx-auto h-12 px-1 py-2 flex flex-row gap-2 sm:gap-5 items-center text-white">
+      <div className="max-w-6xl w-full overflow-hidden mx-auto h-12 px-1 py-2 flex flex-row gap-2 sm:gap-5 items-center text-white">
         <Link href="/">
           <div className="flex flex-row gap-2 h-full items-center flex-1">
             <div className="relative h-full aspect-square">
@@ -29,14 +29,14 @@ export default function Header() {
         </Link>
         {session ? (
           <Link href={`/user/${session.user?.name}`}>
-            <div className="cursor-link font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-4 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
+            <div className="cursor-link font-trajan flex flex-row gap-2 justify-center items-center bg-brown-brushed rounded-full px-2 py-1 hover:scale-110 transition-transform drop-shadow-lg h-full">
               <Image
                 src={avatar(session.user?.image)}
                 width={20}
                 height={20}
                 className={cls('rounded-full', userStyles.border)}
               />
-              <span className={cls(userStyles.text)}>
+              <span className={cls('text-ellipsis whitespace-nowrap overflow-hidden', userStyles.text)}>
                 {(session.user as any)?.lodestoneData?.name || session.user?.name}
               </span>
             </div>
