@@ -180,7 +180,7 @@ export default function GameScreen({
           </div>
         ) : null}
       </div>
-      <div className="flex flex-col gap-6 w-full h-full justify-start mt-2 sm:mt-0 sm:justify-center items-center text-white text-5xl sm:text-6xl">
+      <div className="flex flex-col gap-6 w-full h-full justify-start mt-2 sm:mt-0 sm:justify-center items-center text-white text-5xl sm:text-6xl lg:max-w-7xl mx-auto">
         <h2 className={cls('text-center', { hidden: !questionVisible })}>{lastItem?.question}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full px-2 sm:px-10 text-4xl">
           {lastItem?.options.map((o) => (
@@ -238,7 +238,7 @@ export default function GameScreen({
       </div>
       {!showFinished && lastItem?.score !== null && lastItem?.score !== undefined && game.length <= maxRounds ? (
         <button
-          className="z-50 isolate font-trajan bg-brown-brushed text-white left-auto sm:left-2 lg:left-auto lg:hover:scale-125 transition-transform flex flex-col absolute bottom-1.5 sm:bottom-0.5 lg:bottom-4 px-10 py-2 text-2xl lg:text-5xl drop-shadow-md rounded-full"
+          className="z-50 isolate font-trajan bg-brown-brushed text-white left-auto sm:left-2 lg:left-auto lg:hover:scale-125 transition-transform flex flex-col absolute bottom-4 sm:bottom-4 lg:bottom-10 px-10 py-2 text-2xl lg:text-5xl drop-shadow-md rounded-full"
           onClick={() => {
             if (currentGameIsFinished) {
               setShowFinished(true)
