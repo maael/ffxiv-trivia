@@ -126,7 +126,7 @@ export default function GameScreen({
   return (
     <div
       suppressHydrationWarning
-      className="bg-black-brushed bg-gray-900 flex flex-col justify-center items-center flex-1 w-full relative"
+      className="bg-black-brushed bg-gray-900 flex flex-col justify-center items-center flex-1 w-full relative pb-10"
     >
       <div className="bg-brown-brushed flex flex-col justify-center items-center gap-0 md:absolute top-4 right-4 text-white px-8 lg:px-12 lg:text-2xl pt-2 pb-4 text-lg rounded-lg my-4 md:my-0 mx-2 drop-shadow-xl">
         <div className="flex flex-col gap-1 sm:gap-10 lg:gap-0 justify-center lg:items-start items-center w-full">
