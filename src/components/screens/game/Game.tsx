@@ -260,7 +260,7 @@ export default function GameScreen({
               {game.map((g, i) => (
                 <div key={g._id} className="flex flex-row items-center gap-2 bg-black-brushed px-3 md:px-10 py-2">
                   <div className="pr-2 md:pr-5">{i + 1}.</div>
-                  <div className="flex-1 font-trajan">{g.question}</div>
+                  <div className="flex-1 font-trajan sm:font-xs">{g.question}</div>
                   <div className="text-right flex-0">
                     <img src={g.score ? '/ui/tick.png' : '/ui/x.png'} className="w-8 h-8" />
                   </div>
