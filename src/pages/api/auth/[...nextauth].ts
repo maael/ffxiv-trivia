@@ -72,9 +72,7 @@ async function registerFlow(
     if (!credentials) return reject(new Error('Credentials required'))
     if (credentials.password.length < 8) return reject(new Error('Password must be more than 8 characters'))
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const lodestoneData = await getLodestoneData(
-      credentials.lodestoneUrl || 'https://na.finalfantasyxiv.com/lodestone/character/14985627/'
-    )
+    const lodestoneData = await getLodestoneData(credentials.lodestoneUrl)
     const newUser = new UserModel({
       username: credentials.username,
       password: credentials.password,
