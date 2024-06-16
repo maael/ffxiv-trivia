@@ -55,19 +55,21 @@ export default function Index() {
           <span className={cls('font-trajan', userStyles.text)}>{user?.lodestoneData?.title}</span>
           <UserLinks username={user.username} />
         </div>
-        <div className="flex flex-row gap-2 justify-center items-center">
-          <div className="relative" style={{ height: 40, width: 40 }}>
-            {user?.lodestoneData?.freeCompany?.crest.map((i) => (
-              <img src={i} key={i} className="absolute inset-0" />
-            ))}
+        {user?.lodestoneData?.freeCompany && user?.lodestoneData?.freeCompany?.name !== '' ? (
+          <div className="flex flex-row gap-2 justify-center items-center">
+            <div className="relative" style={{ height: 40, width: 40 }}>
+              {user?.lodestoneData?.freeCompany?.crest.map((i) => (
+                <img src={i} key={i} className="absolute inset-0" />
+              ))}
+            </div>
+            <a
+              className="text-center text-lg"
+              href={`https://na.finalfantasyxiv.com${user?.lodestoneData?.freeCompany?.url}`}
+            >
+              {user?.lodestoneData?.freeCompany?.name}
+            </a>
           </div>
-          <a
-            className="text-center text-lg"
-            href={`https://na.finalfantasyxiv.com${user?.lodestoneData?.freeCompany?.url}`}
-          >
-            {user?.lodestoneData?.freeCompany?.name}
-          </a>
-        </div>
+        ) : null}
         <div
           className="flex flex-col justify-center bg-brown-brushed px-6 pt-4 pb-5 mt-2 drop-shadow-lg w-full text-xl"
           style={{ minHeight: '20vh' }}
